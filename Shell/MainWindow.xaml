@@ -10,10 +10,7 @@
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance Type=local:MainWindow}">
 
-    <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}"/>
-
-
-
+    <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}" />
 
     <!--<Window.Resources>
         <DataTemplate DataType="{x:Type vm:BookViewModel}">
@@ -34,38 +31,35 @@
         <ListBox.Template>
             <ControlTemplate>
                 <classes:MyScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <controls:VirtualizingWrapPanel IsItemsHost="True"/>
+                    <controls:VirtualizingWrapPanel IsItemsHost="True" />
                 </classes:MyScrollViewer>
             </ControlTemplate>
         </ListBox.Template>
     </ListBox>-->
 </Window>
 
-
-
 <!--<Window.Resources>
-       
     </Window.Resources>
     <Grid>
         <ListView Name="c_imageListBox" ItemsSource="{Binding ImagePaths}">
             <ListView.Template>
                 <ControlTemplate>
                     <classes:MyScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                        <WrapPanel IsItemsHost="True"/>
+                        <WrapPanel IsItemsHost="True" />
                     </classes:MyScrollViewer>
                 </ControlTemplate>
             </ListView.Template>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="OverridesDefaultStyle" Value="True"/>
-                    <Setter Property="SnapsToDevicePixels" Value="True"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Image Height="250" Width="250" Source="{Binding IsAsync=True}"/>
+                                <Image Height="250" Width="250" Source="{Binding IsAsync=True}" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -73,11 +67,12 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel/>
+                    <WrapPanel />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
-        --><!--<ListView VirtualizingPanel.IsContainerVirtualizable="True"
+        -->
+<!--<ListView VirtualizingPanel.IsContainerVirtualizable="True"
                     VirtualizingPanel.IsVirtualizing="False"
                     VirtualizingPanel.VirtualizationMode="Recycling"
                     VirtualizingPanel.CacheLengthUnit="Page"
@@ -85,7 +80,7 @@
             Visibility="Visible" ItemsSource="{Binding Images, Mode=OneWay}" Background="Pink" HorizontalContentAlignment="Center">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid/>
+                    <UniformGrid />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
@@ -95,13 +90,14 @@
                             <BitmapImage
                             DecodePixelHeight="64"
                             DecodePixelWidth="64"
-                            UriSource="{Binding Path=., Mode=OneWay,UpdateSourceTrigger=Explicit}" 
-                            CreateOptions="DelayCreation" 
-                            CacheOption="None"  />
+                            UriSource="{Binding Path=., Mode=OneWay,UpdateSourceTrigger=Explicit}"
+                            CreateOptions="DelayCreation"
+                            CacheOption="None" />
                         </Image.Source>
                     </Image>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>--><!--
+        </ListView>-->
+<!--
     </Grid>
 </Window>-->
