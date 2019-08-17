@@ -20,7 +20,7 @@ namespace ApplicationMenu.Views
     /// </summary>
     public partial class FileMenuView : UserControl
     {
-        public UserControl1()
+        public FileMenuView()
         {
             InitializeComponent();
         }
