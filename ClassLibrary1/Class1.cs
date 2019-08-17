@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicReader.Net.ApplicationMenu.ViewModels
+namespace ClassLibrary1
 {
-    public class FileMenuViewModel
+    public class Class1
     {
     }
 }

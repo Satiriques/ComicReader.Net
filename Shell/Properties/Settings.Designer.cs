@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shell.Properties {
+namespace ComicReader.Net.Shell.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ComicReader.Net.UI.Model;
+using ComicReader.Net.Shell.Models;
 
-namespace ComicReader.Net.UI.Interfaces
+namespace ComicReader.Net.Shell.Interfaces
 {
     public interface IComicService
     {

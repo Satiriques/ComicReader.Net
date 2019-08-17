@@ -1,13 +1,6 @@
-﻿using ComicReader.Net.UI.Model;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+﻿using ComicReader.Net.Shell.Models;
 
-namespace Comic.Net.ViewModels
+namespace ComicReader.Net.Shell.ViewModels
 {
     public class BookViewModel
     {

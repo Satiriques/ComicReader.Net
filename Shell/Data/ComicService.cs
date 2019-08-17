@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ComicReader.Net.UI.Interfaces;
 using System.Linq;
-using System.Threading.Tasks;
-using ComicReader.Net.UI.Model;
+using ComicReader.Net.Shell.Interfaces;
+using ComicReader.Net.Shell.Models;
 
-namespace ComicReader.Net.UI.Data
+namespace ComicReader.Net.Shell.Data
 {
     public class ComicService : IComicService
     {

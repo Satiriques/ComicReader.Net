@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace ComicReader.Net.UI.Model
+namespace ComicReader.Net.Shell.Models
 {
     public class Book
     {

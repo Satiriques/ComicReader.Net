@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Comic.Net.Classes
+namespace ComicReader.Net.Shell.Classes
 {
     public sealed class MyScrollViewer : ScrollViewer
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ComicReader.Net.UI.Model
+namespace ComicReader.Net.Shell.Models
 {
     public class Character
     {

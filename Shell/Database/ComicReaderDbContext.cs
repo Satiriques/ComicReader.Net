@@ -1,13 +1,8 @@
-﻿using ComicReader.Net.UI.Model;
-using System;
-using System.Collections.Generic;
+﻿
+using ComicReader.Net.Shell.Models;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ComicReader.Net.Database
+namespace ComicReader.Net.Shell.Database
 {
     public class ComicReaderDbContext : DbContext
     {

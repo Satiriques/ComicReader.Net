@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{87DE2EF7-E734-42CC-9EE6-2B0216874944}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Shell</RootNamespace>
+    <RootNamespace>ComicReader.Net.Shell</RootNamespace>
     <AssemblyName>Shell</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -87,6 +87,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Thumbnail.cs" />
     <Compile Include="Models\ThumbnailCache.cs" />
+    <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationMenu\ApplicationMenu.csproj">
+      <Project>{55601FA9-6578-44C5-8366-EE68E1BBC292}</Project>
+      <Name>ApplicationMenu</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
