@@ -1,5 +1,6 @@
 ﻿using ComicReader.Net.Shell.Startup;
 using System.Windows;
+using Autofac;
 
 namespace ComicReader.Net.Shell
 {
@@ -11,9 +12,9 @@ namespace ComicReader.Net.Shell
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var bootstrapper = new Bootstrapper();
-            bootstrapper.Bootstrap();
+            var container = bootstrapper.Bootstrap();
 
-            var mainWindow = new MainWindow();
+            var mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ComicReader.Net.Shell.ViewModels;
+using System.Windows;
 
 namespace ComicReader.Net.Shell
 {
@@ -7,9 +8,10 @@ namespace ComicReader.Net.Shell
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();
+            DataContext = mainViewModel;
         }
     }
 }

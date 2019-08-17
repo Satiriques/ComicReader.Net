@@ -87,8 +87,10 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Thumbnail.cs" />
     <Compile Include="Models\ThumbnailCache.cs" />
+    <Compile Include="ShellModule.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +137,10 @@
     <ProjectReference Include="..\ApplicationMenu\ApplicationMenu.csproj">
       <Project>{55601FA9-6578-44C5-8366-EE68E1BBC292}</Project>
       <Name>ApplicationMenu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{10723639-5558-4E2E-B001-FF6B8836CFC3}</Project>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

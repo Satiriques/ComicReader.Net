@@ -8,6 +8,8 @@ namespace ComicReader.Net.Shell.Startup
         public IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterModule<ShellModule>();
             builder.RegisterModule<ApplicationMenuModule>();
 
             return builder.Build();

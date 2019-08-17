@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using Autofac.Core;
+using ComicReader.Net.ApplicationMenu.Interfaces;
+using ComicReader.Net.ApplicationMenu.ViewModels;
+using ComicReader.Net.ApplicationMenu.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,8 @@ namespace ComicReader.Net.ApplicationMenu
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //TODO: Register types here
+            builder.RegisterType<FileMenuViewModel>().As<IFileMenuViewModel>();
+            builder.RegisterType<FileMenuView>();
         }
     }
 }

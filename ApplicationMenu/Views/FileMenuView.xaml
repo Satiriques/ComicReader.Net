@@ -6,7 +6,14 @@
              xmlns:local="clr-namespace:ComicReader.Net.ApplicationMenu.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Preferences..."/>
+            </MenuItem>
+        </Menu>
+    </DockPanel>
 </UserControl>
