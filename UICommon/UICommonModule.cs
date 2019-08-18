@@ -1,22 +1,18 @@
 ﻿using Autofac;
-using ComicReader.Net.Common.Interfaces;
-using ComicReader.Net.Shell.Services;
-using ComicReader.Net.Shell.ViewModels;
+using ComicReader.Net.UICommon.Interfaces;
+using ComicReader.Net.UICommon.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicReader.Net.Shell
+namespace ComicReader.Net.UICommon
 {
-    internal class ShellModule : Module
+    public class UICommonModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MainWindow>().AsSelf();
-            builder.RegisterType<MainViewModel>().AsSelf();
-
             builder.RegisterType<WindowService>().As<IWindowService>().SingleInstance();
         }
     }

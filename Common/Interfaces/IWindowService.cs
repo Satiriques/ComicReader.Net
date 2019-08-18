@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicReader.Net.ApplicationMenu.Interfaces
+namespace ComicReader.Net.Common.Interfaces
 {
-    public interface IFileMenuViewModel
+    public interface IWindowService
     {
+        void ShowPreferences();
     }
 }

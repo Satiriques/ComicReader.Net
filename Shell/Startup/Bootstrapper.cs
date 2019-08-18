@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ComicReader.Net.ApplicationMenu;
+using Prism.Events;
 
 namespace ComicReader.Net.Shell.Startup
 {
@@ -9,6 +10,7 @@ namespace ComicReader.Net.Shell.Startup
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
             builder.RegisterModule<ShellModule>();
             builder.RegisterModule<ApplicationMenuModule>();
 

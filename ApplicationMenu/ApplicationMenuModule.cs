@@ -17,6 +17,9 @@ namespace ComicReader.Net.ApplicationMenu
         {
             builder.RegisterType<FileMenuViewModel>().As<IFileMenuViewModel>();
             builder.RegisterType<FileMenuView>();
+
+            builder.RegisterType<PreferencesViewModel>().AsSelf();
+            builder.RegisterType<PreferencesView>();
         }
     }
 }

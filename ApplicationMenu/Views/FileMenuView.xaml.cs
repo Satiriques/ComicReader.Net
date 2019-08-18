@@ -1,4 +1,5 @@
 ﻿using ComicReader.Net.ApplicationMenu.Interfaces;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ComicReader.Net.ApplicationMenu.Views
@@ -8,6 +9,8 @@ namespace ComicReader.Net.ApplicationMenu.Views
     /// </summary>
     public partial class FileMenuView : UserControl
     {
+        private bool _isSubscribed;
+
         public FileMenuView()
         {
             InitializeComponent();
