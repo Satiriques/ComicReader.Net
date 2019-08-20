@@ -9,8 +9,6 @@ namespace ComicReader.Net.ApplicationMenu.Views
     /// </summary>
     public partial class FileMenuView : UserControl
     {
-        private bool _isSubscribed;
-
         public FileMenuView()
         {
             InitializeComponent();

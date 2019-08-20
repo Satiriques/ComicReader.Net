@@ -5,12 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ComicReader.Net.ApplicationMenu.Views"
              xmlns:vm="clr-namespace:ComicReader.Net.ApplicationMenu.ViewModels"
+             xmlns:views="clr-namespace:ComicReader.Net.ApplicationMenu.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <Window.Resources>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <ListView SelectedValue="{Binding SelectedViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding MenuViewModels}"
+                  DisplayMemberPath="Title">
+            <!--<Expander Header="Libraries">
+                <ListViewItem>General</ListViewItem>
+            </Expander>-->
+        </ListView>
+        <ContentControl Grid.Column="1" Content="{Binding SelectedViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:AdvancedSettingsViewModel}">
+                    <local:AdvancedSettingsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:LibrariesSettingsViewModel}">
+                    <local:LibrariesSettingsView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+        <!--<views:LibrariesSettingsView Grid.Column="1" DataContext="{Binding LibrariesSettingsViewModel}" />-->
     </Grid>
 </Window>

@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,9 +43,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,11 +60,20 @@
   <ItemGroup>
     <Compile Include="ApplicationMenuModule.cs" />
     <Compile Include="Interfaces\IFileMenuViewModel.cs" />
+    <Compile Include="Interfaces\ISettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdvancedSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileMenuViewModel.cs" />
+    <Compile Include="ViewModels\LibrariesSettingsViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
+    <Compile Include="Views\AdvancedSettingsView.xaml.cs">
+      <DependentUpon>AdvancedSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FileMenuView.xaml.cs">
       <DependentUpon>FileMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibrariesSettingsView.xaml.cs">
+      <DependentUpon>LibrariesSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PreferencesView.xaml.cs">
       <DependentUpon>PreferencesView.xaml</DependentUpon>
@@ -70,7 +83,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AdvancedSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FileMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LibrariesSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
