@@ -9,5 +9,7 @@ namespace ComicReader.Net.Common.Interfaces
     public interface IWindowService
     {
         void ShowPreferences();
+
+        string ShowFolderDialog();
     }
 }

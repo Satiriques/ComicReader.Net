@@ -1,6 +1,10 @@
 ﻿using ComicReader.Common;
 using ComicReader.Net.ApplicationMenu.Interfaces;
+using ComicReader.Net.Common.Interfaces;
+using Prism.Commands;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace ComicReader.Net.ApplicationMenu.ViewModels
 {
@@ -8,8 +12,23 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
     {
         private ISettingsViewModel _selectedViewModel;
 
-        public LibrariesSettingsViewModel LibrariesSettingsViewModel { get; }
+        public PreferencesViewModel(LibrariesSettingsViewModel librariesSettingsViewModel,
+                                    AdvancedSettingsViewModel advancedSettingsViewModel)
+        {
+            LibrariesSettingsViewModel = librariesSettingsViewModel;
+            AdvancedSettingsViewModel = advancedSettingsViewModel;
+
+            MenuViewModels = new ObservableCollection<ISettingsViewModel>
+            {
+                librariesSettingsViewModel,
+                advancedSettingsViewModel
+            };
+            OnPropertyChanged(nameof(MenuViewModels));
+        }
+
         public AdvancedSettingsViewModel AdvancedSettingsViewModel { get; }
+
+        public LibrariesSettingsViewModel LibrariesSettingsViewModel { get; }
 
         public ObservableCollection<ISettingsViewModel> MenuViewModels { get; set; }
 
@@ -27,20 +46,6 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
                     OnPropertyChanged();
                 }
             }
-        }
-
-        public PreferencesViewModel(LibrariesSettingsViewModel librariesSettingsViewModel,
-                                    AdvancedSettingsViewModel advancedSettingsViewModel)
-        {
-            LibrariesSettingsViewModel = librariesSettingsViewModel;
-            AdvancedSettingsViewModel = advancedSettingsViewModel;
-
-            MenuViewModels = new ObservableCollection<ISettingsViewModel>
-            {
-                librariesSettingsViewModel,
-                advancedSettingsViewModel
-            };
-            OnPropertyChanged(nameof(MenuViewModels));
         }
     }
 }
