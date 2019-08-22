@@ -2,26 +2,24 @@
 using ComicReader.Net.ApplicationMenu.Interfaces;
 using ComicReader.Net.Common.Interfaces;
 using Prism.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ComicReader.Net.ApplicationMenu.ViewModels
 {
     public class LibrariesSettingsViewModel : ViewModelBase, ISettingsViewModel
     {
         private readonly IWindowService _windowService;
+        private readonly IUserConfig _userConfig;
         private string selectedItem;
 
-        public LibrariesSettingsViewModel(IWindowService windowService)
+        public LibrariesSettingsViewModel(IWindowService windowService,
+                                          IUserConfig config)
         {
             _windowService = windowService;
+            _userConfig = config;
 
-            Libraries = new ObservableCollection<string>();
+            Libraries = new ObservableCollection<string>(config.Libraries);
 
             AddCommand = new DelegateCommand(AddCommandExecute);
             RemoveCommand = new DelegateCommand(RemoveCommandExecute, RemoveCommandCanExecute);
@@ -43,6 +41,13 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         }
 
         public string Title => "Librairies";
+
+        public void SaveConfig()
+        {
+            _userConfig.Libraries = Libraries.ToList();
+
+            _userConfig.Save();
+        }
 
         private void AddCommandExecute()
         {

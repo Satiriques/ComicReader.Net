@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationMenuModule.cs" />
+    <Compile Include="Events\PreferencesOKEvent.cs" />
     <Compile Include="Interfaces\IFileMenuViewModel.cs" />
     <Compile Include="Interfaces\ISettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
