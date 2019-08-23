@@ -89,11 +89,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\MyScrollViewer.cs" />
     <Compile Include="Database\ComicReaderDbContext.cs" />
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\Thumbnail.cs" />
-    <Compile Include="Models\ThumbnailCache.cs" />
+    <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ShellModule.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />

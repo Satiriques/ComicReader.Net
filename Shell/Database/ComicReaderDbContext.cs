@@ -1,5 +1,4 @@
-﻿
-using ComicReader.Net.Shell.Models;
+﻿using ComicReader.Net.Common.Models;
 using System.Data.Entity;
 
 namespace ComicReader.Net.Shell.Database
@@ -8,8 +7,8 @@ namespace ComicReader.Net.Shell.Database
     {
         public ComicReaderDbContext() : base("ComicReaderDb")
         {
-
         }
+
         public DbSet<Book> Books { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Character> Characters { get; set; }
@@ -22,21 +21,24 @@ namespace ComicReader.Net.Shell.Database
                 .WithRequired(t => t.Book)
                 .HasForeignKey(t => t.BookId);
 
-            modelBuilder.Entity<Book>()
-                .HasMany(b => b.Characters)
-                .WithRequired(c => c.Book)
-                .HasForeignKey(c => c.BookId);
+            //modelBuilder.Entity<Book>()
+            //    .HasMany(b => b.Characters)
+            //    .WithRequired(c => c.Book)
+            //    .HasForeignKey(c => c.BookId);
 
-            modelBuilder.Entity<Book>()
-                .HasMany(b => b.Thumbnails)
-                .WithRequired(t => t.Book)
-                .HasForeignKey(t => t.BookId);
+            //modelBuilder.Entity<Book>()
+            //    .HasMany(b => b.Thumbnails)
+            //    .WithRequired(t => t.Book)
+            //    .HasForeignKey(t => t.BookId);
 
-            modelBuilder.Entity<Tag>()
-                .HasKey(t => new { t.TagId, t.Name });
+            //modelBuilder.Entity<Book>()
+            //    .HasKey(b => new { b.Id, b.Path });
 
-            modelBuilder.Entity<Thumbnail>()
-                .HasKey(t => new { t.ThumbnailId, t.Path });
+            //modelBuilder.Entity<Tag>()
+            //    .HasKey(t => new { t.TagId, t.Name });
+
+            //modelBuilder.Entity<Thumbnail>()
+            //    .HasKey(t => new { t.ThumbnailId, t.Path });
         }
     }
 }

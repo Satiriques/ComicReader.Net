@@ -1,4 +1,4 @@
-﻿using ComicReader.Net.Shell.Models;
+﻿using ComicReader.Net.Common.Models;
 
 namespace ComicReader.Net.Shell.ViewModels
 {

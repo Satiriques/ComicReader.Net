@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicReader.Net.Shell.Models
+namespace ComicReader.Net.Common.Interfaces
 {
-    public class ThumbnailCache
+    public interface ICloseable
     {
+        void Close();
     }
 }

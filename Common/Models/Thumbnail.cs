@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading;
-
-namespace ComicReader.Net.Shell.Models
+﻿namespace ComicReader.Net.Common.Models
 {
     public class Thumbnail
     {

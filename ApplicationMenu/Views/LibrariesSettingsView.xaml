@@ -35,7 +35,7 @@
         <Button Content="Remove" Grid.Column="3" Grid.Row="3"
                 Command="{Binding RemoveCommand}" />
 
-        <Button Content="Sync" Grid.Column="3" Grid.Row="5" />
+        <Button Content="Sync" Command="{Binding SyncCommand}" Grid.Column="3" Grid.Row="5" />
 
         <Separator Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7" />
     </Grid>

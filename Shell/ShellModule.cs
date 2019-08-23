@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using ComicReader.Net.Common.Interfaces;
+using ComicReader.Net.Shell.Database;
+using ComicReader.Net.Shell.Interfaces;
 using ComicReader.Net.Shell.Services;
 using ComicReader.Net.Shell.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ComicReader.Net.Shell
 {
@@ -14,6 +12,9 @@ namespace ComicReader.Net.Shell
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ComicReaderDbContext>().AsSelf();
+            builder.RegisterType<DataService>().As<IDataService>();
+
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();
 

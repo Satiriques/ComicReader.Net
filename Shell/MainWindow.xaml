@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:ComicReader.Net.Shell"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance Type=local:MainWindow}">
+        d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+        Loaded="Window_Loaded">
 
     <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}" />
 

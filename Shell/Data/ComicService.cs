@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ComicReader.Net.Common.Models;
+using ComicReader.Net.Shell.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ComicReader.Net.Shell.Interfaces;
-using ComicReader.Net.Shell.Models;
 
 namespace ComicReader.Net.Shell.Data
 {
@@ -60,7 +60,6 @@ namespace ComicReader.Net.Shell.Data
                         {
                             Console.WriteLine("skipped " + file);
                         }
-                        
                     }
 
                     foreach (var img in images)
@@ -68,7 +67,6 @@ namespace ComicReader.Net.Shell.Data
                         File.Delete(img);
                     }
                 }
-
             }
         }
     }

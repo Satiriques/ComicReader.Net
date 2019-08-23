@@ -10,7 +10,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Width="500"
              Height="350"
-             ResizeMode="NoResize">
+             ResizeMode="NoResize"
+             WindowStartupLocation="CenterOwner"
+             x:Name="_window">
     <Window.Resources>
         <Style TargetType="Button" x:Key="OkCancelStyle">
             <Setter Property="Margin" Value="10" />
@@ -45,8 +47,8 @@
             </ContentControl.Resources>
         </ContentControl>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right">
-            <Button Content="OK" Command="{Binding OKCommand}" Style="{StaticResource OkCancelStyle}" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource OkCancelStyle}" />
+            <Button Content="OK" Command="{Binding OKCommand}" CommandParameter="{Binding ElementName=_window}" Style="{StaticResource OkCancelStyle}" />
+            <Button Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=_window}" Style="{StaticResource OkCancelStyle}" />
         </StackPanel>
         <!--<views:LibrariesSettingsView Grid.Column="1" DataContext="{Binding LibrariesSettingsViewModel}" />-->
     </Grid>

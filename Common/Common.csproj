@@ -48,9 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\UserConfig.cs" />
+    <Compile Include="Interfaces\ICloseable.cs" />
+    <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IUserConfig.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Interfaces\IWindowService.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Thumbnail.cs" />
+    <Compile Include="Models\ThumbnailCache.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

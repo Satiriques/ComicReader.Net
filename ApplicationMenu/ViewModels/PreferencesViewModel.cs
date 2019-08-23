@@ -15,7 +15,8 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         public PreferencesViewModel(LibrariesSettingsViewModel librariesSettingsViewModel,
                                     AdvancedSettingsViewModel advancedSettingsViewModel,
-                                    IEventAggregator eventAggregator, IUserConfig userConfig)
+                                    IEventAggregator eventAggregator,
+                                    IUserConfig userConfig)
         {
             LibrariesSettingsViewModel = librariesSettingsViewModel;
             AdvancedSettingsViewModel = advancedSettingsViewModel;
@@ -28,18 +29,20 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
             };
             OnPropertyChanged(nameof(MenuViewModels));
 
-            OKCommand = new DelegateCommand(OnOKCommand);
-            CancelCommand = new DelegateCommand(OnCancelCommand);
+            OKCommand = new DelegateCommand<ICloseable>(OnOKCommand);
+            CancelCommand = new DelegateCommand<ICloseable>(OnCancelCommand);
             _userConfig = userConfig;
         }
 
-        private void OnCancelCommand()
+        private void OnCancelCommand(ICloseable window)
         {
+            window?.Close();
         }
 
-        private void OnOKCommand()
+        private void OnOKCommand(ICloseable window)
         {
             LibrariesSettingsViewModel.SaveConfig();
+            window?.Close();
         }
 
         public AdvancedSettingsViewModel AdvancedSettingsViewModel { get; }
@@ -48,8 +51,8 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         public ObservableCollection<ISettingsViewModel> MenuViewModels { get; set; }
 
-        public DelegateCommand OKCommand { get; }
-        public DelegateCommand CancelCommand { get; }
+        public DelegateCommand<ICloseable> OKCommand { get; }
+        public DelegateCommand<ICloseable> CancelCommand { get; }
 
         private IUserConfig _userConfig;
 
