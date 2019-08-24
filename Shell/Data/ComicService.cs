@@ -38,9 +38,7 @@ namespace ComicReader.Net.Shell.Data
 
         private void CacheCovers()
         {
-            var files = Directory.GetFiles("Files");
-
-            foreach (var file in files)
+            foreach (var file in Directory.GetFiles("Files"))
             {
                 var fileName = Path.GetFileNameWithoutExtension(file);
                 var cacheFile = Path.Combine(_cacheDirectory, fileName + ".cache");
