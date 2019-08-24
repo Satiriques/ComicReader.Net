@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ComicReader.Net.Shell.Classes
 {
+    /// <summary>
+    /// https://stackoverflow.com/questions/27641606/loading-a-large-amount-of-images-to-be-displayed-in-a-wrappanel
+    /// </summary>
     public sealed class MyScrollViewer : ScrollViewer
     {
         public static readonly DependencyProperty IsInViewportProperty =
