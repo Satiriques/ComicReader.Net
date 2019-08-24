@@ -103,8 +103,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\ComicService.cs" />
-    <Compile Include="Interfaces\IComicService.cs" />
+    <Compile Include="Data\ThumbnailCacheService.cs" />
+    <Compile Include="Interfaces\IThumbnailCacheService.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

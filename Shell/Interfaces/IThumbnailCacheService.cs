@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ComicReader.Net.Shell.Interfaces
 {
-    public interface IComicService
+    public interface IThumbnailCacheService
     {
         IEnumerable<Book> GetAll();
 

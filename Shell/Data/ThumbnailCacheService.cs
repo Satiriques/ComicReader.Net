@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace ComicReader.Net.Shell.Data
 {
-    public class ComicService : IComicService
+    public class ThumbnailCacheService : IThumbnailCacheService
     {
         private readonly string _currentDirectory;
         private readonly string _cacheDirectory;
         private readonly string _tmpDirectory;
 
-        public ComicService()
+        public ThumbnailCacheService()
         {
             _currentDirectory = Directory.GetCurrentDirectory();
             _cacheDirectory = Path.Combine(_currentDirectory, "cache");
