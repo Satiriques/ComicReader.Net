@@ -1,7 +1,7 @@
 ﻿using Autofac;
+using ComicReader.Net.ApplicationMenu.Interfaces;
 using ComicReader.Net.Common.Interfaces;
 using ComicReader.Net.Shell.Database;
-using ComicReader.Net.Shell.Interfaces;
 using ComicReader.Net.Shell.Services;
 using ComicReader.Net.Shell.ViewModels;
 using System;
@@ -14,6 +14,7 @@ namespace ComicReader.Net.Shell
         {
             builder.RegisterType<ComicReaderDbContext>().AsSelf();
             builder.RegisterType<DataService>().As<IDataService>();
+            builder.RegisterType<ZipService>().As<IZipService>();
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();

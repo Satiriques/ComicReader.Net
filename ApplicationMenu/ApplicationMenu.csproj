@@ -65,8 +65,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdvancedSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileMenuViewModel.cs" />
+    <Compile Include="ViewModels\GridSettingsViewModel.cs" />
     <Compile Include="ViewModels\LibrariesSettingsViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
+    <Compile Include="Views\GallerySettingsView.xaml.cs">
+      <DependentUpon>GallerySettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AdvancedSettingsView.xaml.cs">
       <DependentUpon>AdvancedSettingsView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +88,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\GallerySettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AdvancedSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

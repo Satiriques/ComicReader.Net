@@ -13,14 +13,17 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         private readonly IWindowService _windowService;
         private readonly IUserConfig _userConfig;
         private readonly IDataService _dataService;
+        private readonly IZipService _zipService;
         private string selectedItem;
 
         public LibrariesSettingsViewModel(IWindowService windowService,
                                           IUserConfig config,
-                                          IDataService dataService)
+                                          IDataService dataService,
+                                          IZipService zipService)
         {
             _windowService = windowService;
             _dataService = dataService;
+            _zipService = zipService;
             _userConfig = config;
 
             Libraries = new ObservableCollection<string>(config.Libraries);
@@ -74,6 +77,8 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         {
             var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
             await _dataService.AddBooksAsync(files);
+            var books = await _dataService.GetAllBooksAsync();
+            await _zipService.ExtractFilesAsync(books);
         }
 
         private bool RemoveCommandCanExecute()

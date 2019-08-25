@@ -1,12 +1,9 @@
 ﻿using ComicReader.Net.Common.Models;
 using System.Collections.Generic;
 
-namespace ComicReader.Net.Shell.Interfaces
+namespace ComicReader.Net.Common.Interfaces
 {
     public interface IThumbnailCacheService
     {
-        IEnumerable<Book> GetAll();
-
-        void Initialize();
     }
 }

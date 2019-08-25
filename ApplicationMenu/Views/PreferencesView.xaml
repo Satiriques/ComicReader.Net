@@ -39,7 +39,7 @@
         <ContentControl Grid.Column="1" Content="{Binding SelectedViewModel}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:AdvancedSettingsViewModel}">
-                    <local:AdvancedSettingsView />
+                    <local:GallerySettingsView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:LibrariesSettingsViewModel}">
                     <local:LibrariesSettingsView />

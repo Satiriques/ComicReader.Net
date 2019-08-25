@@ -51,9 +51,11 @@
     <Compile Include="Classes\UserConfig.cs" />
     <Compile Include="Interfaces\ICloseable.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
+    <Compile Include="Interfaces\IThumbnailCacheService.cs" />
     <Compile Include="Interfaces\IUserConfig.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Interfaces\IWindowService.cs" />
+    <Compile Include="Interfaces\IZipService.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Tag.cs" />

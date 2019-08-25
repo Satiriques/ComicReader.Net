@@ -1,6 +1,10 @@
 ﻿using ComicReader.Net.Shell.Startup;
 using System.Windows;
 using Autofac;
+using System.IO;
+using System.Reflection;
+using System;
+using ComicReader.Net.Shell.Services;
 
 namespace ComicReader.Net.Shell
 {

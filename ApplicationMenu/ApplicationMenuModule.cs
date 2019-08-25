@@ -25,7 +25,7 @@ namespace ComicReader.Net.ApplicationMenu
             builder.RegisterType<LibrariesSettingsView>().AsSelf();
 
             builder.RegisterType<AdvancedSettingsViewModel>().AsSelf();
-            builder.RegisterType<AdvancedSettingsView>().AsSelf();
+            builder.RegisterType<GallerySettingsView>().AsSelf();
         }
     }
 }
