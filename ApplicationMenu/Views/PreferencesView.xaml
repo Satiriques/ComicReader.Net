@@ -32,17 +32,17 @@
         <ListView SelectedValue="{Binding SelectedViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding MenuViewModels}"
                   DisplayMemberPath="Title">
-            <!--<Expander Header="Libraries">
-                <ListViewItem>General</ListViewItem>
-            </Expander>-->
         </ListView>
         <ContentControl Grid.Column="1" Content="{Binding SelectedViewModel}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:AdvancedSettingsViewModel}">
-                    <local:GallerySettingsView />
+                    <local:AdvancedSettingsView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:LibrariesSettingsViewModel}">
                     <local:LibrariesSettingsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:GridSettingsViewModel}">
+                    <local:GridSettingsView />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

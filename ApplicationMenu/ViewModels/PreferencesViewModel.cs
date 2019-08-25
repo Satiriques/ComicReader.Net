@@ -15,6 +15,7 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         public PreferencesViewModel(LibrariesSettingsViewModel librariesSettingsViewModel,
                                     AdvancedSettingsViewModel advancedSettingsViewModel,
+                                    GridSettingsViewModel gridSettingsViewModel,
                                     IEventAggregator eventAggregator,
                                     IUserConfig userConfig)
         {
@@ -25,7 +26,8 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
             MenuViewModels = new ObservableCollection<ISettingsViewModel>
             {
                 librariesSettingsViewModel,
-                advancedSettingsViewModel
+                advancedSettingsViewModel,
+                gridSettingsViewModel
             };
             OnPropertyChanged(nameof(MenuViewModels));
 
