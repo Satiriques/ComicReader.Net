@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
         xmlns:appmenu="clr-namespace:ComicReader.Net.ApplicationMenu.Views;assembly=ApplicationMenu"
+        xmlns:grid="clr-namespace:ComicReader.Net.CenterGrid.Views;assembly=CenterGrid"
         xmlns:local="clr-namespace:ComicReader.Net.Shell"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance Type=local:MainWindow}">
-
-    <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}" />
+        <grid:CenterGridView Grid.Row="1" />
+    </Grid>
 
     <!--<Window.Resources>
         <DataTemplate DataType="{x:Type vm:BookViewModel}">

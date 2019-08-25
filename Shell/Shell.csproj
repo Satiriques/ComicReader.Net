@@ -143,6 +143,10 @@
       <Project>{55601FA9-6578-44C5-8366-EE68E1BBC292}</Project>
       <Name>ApplicationMenu</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CenterGrid\CenterGrid.csproj">
+      <Project>{bbbc4a94-a0ee-464c-b7c5-749a35b32271}</Project>
+      <Name>CenterGrid</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{10723639-5558-4E2E-B001-FF6B8836CFC3}</Project>
       <Name>Common</Name>

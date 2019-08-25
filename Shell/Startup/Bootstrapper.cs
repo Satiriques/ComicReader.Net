@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ComicReader.Net.ApplicationMenu;
+using ComicReader.Net.CenterGrid;
 using ComicReader.Net.Common.Classes;
 using ComicReader.Net.Common.Interfaces;
 using Prism.Events;
@@ -18,6 +19,7 @@ namespace ComicReader.Net.Shell.Startup
 
             builder.RegisterModule<ShellModule>();
             builder.RegisterModule<ApplicationMenuModule>();
+            builder.RegisterType<CenterGridModule>();
 
             return builder.Build();
         }
