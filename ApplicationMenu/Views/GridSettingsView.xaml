@@ -4,9 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ComicReader.Net.ApplicationMenu.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Gallery Settings" />
+        <Grid.ColumnDefinitions>
+            <!--Exterior Margin-->
+            <ColumnDefinition Width="10" />
+            <!--First Column-->
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <!--Exterior Margin-->
+            <RowDefinition Height="10" />
+            <!--First Row-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Thumbnails" FontWeight="Bold" />
+        <!-- TODO: Add an attached behaviour to space automatically items-->
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Cache Size" Margin="0,0,30,0" />
+            <xctk:IntegerUpDown x:Name="cacheUpDown" Margin="0,0,5,0" DefaultValue="64" Value="64" Maximum="256" />
+            <TextBlock Text="px" />
+        </StackPanel>
     </Grid>
 </UserControl>
