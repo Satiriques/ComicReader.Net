@@ -16,7 +16,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <appmenu:FileMenuView DataContext="{Binding FileMenuViewModel}" />
-        <grid:CenterGridView Grid.Row="1" />
+        <grid:CenterGridView Grid.Row="1"
+                             DataContext="{Binding CenterGridViewModel}" />
     </Grid>
 
     <!--<Window.Resources>

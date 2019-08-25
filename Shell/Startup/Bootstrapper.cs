@@ -19,7 +19,7 @@ namespace ComicReader.Net.Shell.Startup
 
             builder.RegisterModule<ShellModule>();
             builder.RegisterModule<ApplicationMenuModule>();
-            builder.RegisterType<CenterGridModule>();
+            builder.RegisterModule<CenterGridModule>();
 
             return builder.Build();
         }

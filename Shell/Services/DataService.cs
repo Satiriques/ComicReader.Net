@@ -13,14 +13,14 @@ namespace ComicReader.Net.Shell.Services
     public class DataService : IDataService
     {
         private readonly Func<ComicReaderDbContext> _dbContext;
-        private readonly IThumbnailCacheService _thumbnailCacheService;
+        private readonly IFileService _fileService;
         private readonly string _cacheFolder;
 
         public DataService(Func<ComicReaderDbContext> dbContext,
-                           IThumbnailCacheService thumbnailCacheService)
+                           IFileService fileService)
         {
             _dbContext = dbContext;
-            _thumbnailCacheService = thumbnailCacheService;
+            _fileService = fileService;
             _cacheFolder = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData),
                 "ComicReader.Net",
@@ -32,6 +32,14 @@ namespace ComicReader.Net.Shell.Services
             using (var db = _dbContext())
             {
                 return await db.Books.AsNoTracking().ToListAsync();
+            }
+        }
+
+        public async Task<Thumbnail> GetThumbnailAsync(int bookId)
+        {
+            using (var db = _dbContext())
+            {
+                return await db.Thumbnails.AsNoTracking().FirstOrDefaultAsync(x => x.BookId == bookId);
             }
         }
 
@@ -52,7 +60,7 @@ namespace ComicReader.Net.Shell.Services
 
         public async Task UpdateCachesAsync()
         {
-            var thumbnails = _thumbnailCacheService.GetAllThumbnails().ToArray();
+            var thumbnails = _fileService.GetAllThumbnails().ToArray();
 
             if (thumbnails.Length > 0)
             {

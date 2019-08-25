@@ -11,5 +11,7 @@ namespace ComicReader.Net.Common.Interfaces
         Task AddBooksAsync(IEnumerable<string> files);
 
         Task UpdateCachesAsync();
+
+        Task<Thumbnail> GetThumbnailAsync(int bookId);
     }
 }

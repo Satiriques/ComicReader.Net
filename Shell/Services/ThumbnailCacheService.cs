@@ -13,13 +13,17 @@ namespace ComicReader.Net.Shell.Services
     {
         private readonly IZipService _zipService;
         private readonly IImageService _imageService;
+        private readonly IDataService _dataService;
         private readonly string _cacheFolder;
+        private Dictionary<int, byte[]> _thumbnailCache;
 
         public ThumbnailCacheService(IZipService zipService,
-                                     IImageService imageService)
+                                     IImageService imageService,
+                                     IDataService dataService)
         {
             _zipService = zipService;
             _imageService = imageService;
+            _dataService = dataService;
             _cacheFolder = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData),
                 "ComicReader.Net",
@@ -28,11 +32,19 @@ namespace ComicReader.Net.Shell.Services
             {
                 Directory.CreateDirectory(_cacheFolder);
             }
+            _thumbnailCache = new Dictionary<int, byte[]>();
         }
 
-        public IEnumerable<string> GetAllThumbnails()
+        public async Task<byte[]> GetThumbnailAsync(int bookId)
         {
-            return Directory.GetFiles(_cacheFolder);
+            if (!_thumbnailCache.TryGetValue(bookId, out byte[] thumbnail))
+            {
+                var thumbnailEntity = await _dataService.GetThumbnailAsync(bookId);
+                thumbnail = File.ReadAllBytes(thumbnailEntity.Path);
+                _thumbnailCache.Add(bookId, thumbnail);
+            }
+
+            return thumbnail;
         }
 
         private async Task CacheBookAsync(Book book, string folder, bool overwrite)

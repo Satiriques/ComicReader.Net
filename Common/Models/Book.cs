@@ -18,8 +18,6 @@ namespace ComicReader.Net.Common.Models
 
         public List<Character> Characters { get; set; }
 
-        public List<Thumbnail> Thumbnails { get; set; }
-
         //public List<ThumbnailCache> ThumbnailCaches { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace ComicReader.Net.Common.Interfaces
     {
         Task CacheBooksAsync(IEnumerable<Book> books, int size = 128);
 
-        IEnumerable<string> GetAllThumbnails();
+        Task<byte[]> GetThumbnailAsync(int bookId);
     }
 }
