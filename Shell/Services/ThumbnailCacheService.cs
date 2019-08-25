@@ -30,6 +30,11 @@ namespace ComicReader.Net.Shell.Services
             }
         }
 
+        public IEnumerable<string> GetAllThumbnails()
+        {
+            return Directory.GetFiles(_cacheFolder);
+        }
+
         private async Task CacheBookAsync(Book book, string folder, bool overwrite)
         {
             await Task.Run(() =>
@@ -64,7 +69,7 @@ namespace ComicReader.Net.Shell.Services
             }).ConfigureAwait(false);
         }
 
-        public async Task CacheBooksAsync(IEnumerable<Book> books, int size)
+        public async Task CacheBooksAsync(IEnumerable<Book> books, int size = 128)
         {
             var processId = Process.GetCurrentProcess().Id;
             var solutionName = "ComicReader.Net";

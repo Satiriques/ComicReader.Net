@@ -17,10 +17,8 @@ namespace ComicReader.Net.Shell.Services
         {
             Image image = Image.FromFile(imagePath);
 
-            System.Drawing.Image thumbnail =
-                new Bitmap(canvasWidth, canvasHeight); // changed parm names
-            System.Drawing.Graphics graphic =
-                         System.Drawing.Graphics.FromImage(thumbnail);
+            Image thumbnail = new Bitmap(canvasWidth, canvasHeight); // changed parm names
+            Graphics graphic = Graphics.FromImage(thumbnail);
 
             graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
             graphic.SmoothingMode = SmoothingMode.HighQuality;
@@ -30,8 +28,8 @@ namespace ComicReader.Net.Shell.Services
             /* ------------------ new code --------------- */
 
             // Figure out the ratio
-            double ratioX = (double)canvasWidth / (double)image.Width;
-            double ratioY = (double)canvasHeight / (double)image.Height;
+            double ratioX = canvasWidth / (double)image.Width;
+            double ratioY = canvasHeight / (double)image.Height;
             // use whichever multiplier is smaller
             double ratio = ratioX < ratioY ? ratioX : ratioY;
 
@@ -49,10 +47,9 @@ namespace ComicReader.Net.Shell.Services
 
             /* ------------- end new code ---------------- */
 
-            System.Drawing.Imaging.ImageCodecInfo[] info =
+            ImageCodecInfo[] info =
                              ImageCodecInfo.GetImageEncoders();
-            EncoderParameters encoderParameters;
-            encoderParameters = new EncoderParameters(1);
+            EncoderParameters encoderParameters = new EncoderParameters(1);
             encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality,
                              100L);
             thumbnail.Save(newImagePath, info[1], encoderParameters);

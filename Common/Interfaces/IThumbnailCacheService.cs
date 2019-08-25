@@ -6,6 +6,8 @@ namespace ComicReader.Net.Common.Interfaces
 {
     public interface IThumbnailCacheService
     {
-        Task CacheBooksAsync(IEnumerable<Book> books, int size);
+        Task CacheBooksAsync(IEnumerable<Book> books, int size = 128);
+
+        IEnumerable<string> GetAllThumbnails();
     }
 }

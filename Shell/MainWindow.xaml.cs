@@ -18,10 +18,5 @@ namespace ComicReader.Net.Shell
             DataContext = mainViewModel;
             _dataService = dataService;
         }
-
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            var books = await _dataService.GetAllBooksAsync();
-        }
     }
 }

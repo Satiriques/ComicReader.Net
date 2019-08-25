@@ -9,5 +9,7 @@ namespace ComicReader.Net.Common.Interfaces
         Task<List<Book>> GetAllBooksAsync();
 
         Task AddBooksAsync(IEnumerable<string> files);
+
+        Task UpdateCachesAsync();
     }
 }
