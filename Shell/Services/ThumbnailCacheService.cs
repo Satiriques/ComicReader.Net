@@ -21,25 +21,43 @@ namespace ComicReader.Net.Shell.Services
                 Environment.SpecialFolder.ApplicationData),
                 "ComicReader.Net",
                 "cache");
+            if (!Directory.Exists(_cacheFolder))
+            {
+                Directory.CreateDirectory(_cacheFolder);
+            }
         }
 
-        private async Task CacheBookAsync(Book book, string folder)
+        private async Task CacheBookAsync(Book book, string folder, bool overwrite)
         {
             await Task.Run(() =>
             {
                 string currentFolder = Path.Combine(folder, book.Id.ToString());
-                _zipService.ExtractBook(book, folder);
-                var files = Directory.GetFiles(folder);
-                File.Move(files[0], Path.Combine(_cacheFolder, book.Id + ".cache"));
-                Directory.Delete(currentFolder);
+                Directory.CreateDirectory(currentFolder);
+                _zipService.ExtractBook(book, currentFolder);
+                var files = Directory.GetFiles(currentFolder);
+
+                var cacheFilePath = Path.Combine(_cacheFolder, book.Id + ".cache");
+                if (File.Exists(cacheFilePath))
+                {
+                    if (overwrite)
+                    {
+                        File.Delete(cacheFilePath);
+                        File.Move(files[0], cacheFilePath);
+                    }
+                }
+                else
+                {
+                    File.Move(files[0], cacheFilePath);
+                }
+                Directory.Delete(currentFolder, true);
             }).ConfigureAwait(false);
         }
 
-        public async Task CacheBooksAsync(IEnumerable<Book> books)
+        public async Task CacheBooksAsync(IEnumerable<Book> books, int size)
         {
             var processId = Process.GetCurrentProcess().Id;
-            var solutionName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
-            var folderName = solutionName + "_" + processId;
+            var solutionName = "ComicReader.Net";
+            var folderName = Path.Combine(Path.GetTempPath(), solutionName + "_" + processId);
 
             var tasks = new List<Task>();
 
@@ -50,7 +68,7 @@ namespace ComicReader.Net.Shell.Services
             }
             Directory.CreateDirectory(folderName);
 
-            await Task.WhenAll(books.Select(b => CacheBookAsync(b, folderName))).ConfigureAwait(false);
+            await Task.WhenAll(books.Select(b => CacheBookAsync(b, folderName, true))).ConfigureAwait(false);
         }
     }
 }

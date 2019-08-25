@@ -27,6 +27,7 @@
             <TextBlock Text="Cache Size" Margin="0,0,30,0" />
             <xctk:IntegerUpDown x:Name="cacheUpDown" Margin="0,0,5,0" DefaultValue="64" Value="64" Maximum="256" />
             <TextBlock Text="px" />
+            <Button Command="{Binding GenerateCacheCommand}" Content="Generate Cache" />
         </StackPanel>
     </Grid>
 </UserControl>
