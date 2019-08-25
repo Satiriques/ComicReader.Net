@@ -59,7 +59,7 @@ namespace ComicReader.Net.Shell.Services
             }
         }
 
-        public async Task ExtractFilesAsync(IEnumerable<Book> books)
+        public async Task ExtractBookByIdAsync(IEnumerable<Book> books)
         {
             await Task.Run(() =>
             {
@@ -74,6 +74,11 @@ namespace ComicReader.Net.Shell.Services
                     ExtractZipFile(book.Path, "", folder);
                 }
             }).ConfigureAwait(false);
+        }
+
+        public void ExtractBook(Book book, string folder)
+        {
+            ExtractZipFile(book.Path, "", folder);
         }
     }
 }

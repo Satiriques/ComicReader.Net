@@ -78,7 +78,7 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
             var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
             await _dataService.AddBooksAsync(files);
             var books = await _dataService.GetAllBooksAsync();
-            await _zipService.ExtractFilesAsync(books);
+            await _zipService.ExtractBookByIdAsync(books);
         }
 
         private bool RemoveCommandCanExecute()

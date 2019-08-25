@@ -6,6 +6,8 @@ namespace ComicReader.Net.Common.Interfaces
 {
     public interface IZipService
     {
-        Task ExtractFilesAsync(IEnumerable<Book> books);
+        Task ExtractBookByIdAsync(IEnumerable<Book> books);
+
+        void ExtractBook(Book book, string folder);
     }
 }
