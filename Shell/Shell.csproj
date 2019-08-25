@@ -90,6 +90,7 @@
     <Compile Include="Classes\MyScrollViewer.cs" />
     <Compile Include="Database\ComicReaderDbContext.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="Services\ZipService.cs" />
     <Compile Include="ShellModule.cs" />

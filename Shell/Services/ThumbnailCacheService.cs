@@ -12,11 +12,14 @@ namespace ComicReader.Net.Shell.Services
     public class ThumbnailCacheService : IThumbnailCacheService
     {
         private readonly IZipService _zipService;
+        private readonly IImageService _imageService;
         private readonly string _cacheFolder;
 
-        public ThumbnailCacheService(IZipService zipService)
+        public ThumbnailCacheService(IZipService zipService,
+                                     IImageService imageService)
         {
             _zipService = zipService;
+            _imageService = imageService;
             _cacheFolder = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData),
                 "ComicReader.Net",
@@ -32,6 +35,7 @@ namespace ComicReader.Net.Shell.Services
             await Task.Run(() =>
             {
                 string currentFolder = Path.Combine(folder, book.Id.ToString());
+                Console.WriteLine($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
                 Directory.CreateDirectory(currentFolder);
                 _zipService.ExtractBook(book, currentFolder);
                 var files = Directory.GetFiles(currentFolder);
@@ -41,14 +45,21 @@ namespace ComicReader.Net.Shell.Services
                 {
                     if (overwrite)
                     {
+                        Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
                         File.Delete(cacheFilePath);
-                        File.Move(files[0], cacheFilePath);
+                        Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
+                        _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
+                        //File.Move(files[0], cacheFilePath);
                     }
                 }
                 else
                 {
-                    File.Move(files[0], cacheFilePath);
+                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
+                    _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
+                    //File.Move(files[0], cacheFilePath);
                 }
+
+                Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
                 Directory.Delete(currentFolder, true);
             }).ConfigureAwait(false);
         }

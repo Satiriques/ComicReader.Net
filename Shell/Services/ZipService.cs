@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using ComicReader.Net.Common.Interfaces;
@@ -13,6 +14,7 @@ namespace ComicReader.Net.Shell.Services
     {
         public void ExtractZipFile(string archivePath, string password, string outFolder)
         {
+            Console.WriteLine($"[{Process.GetCurrentProcess().Id}] unzipping archive: {archivePath} to folder: {outFolder}");
             using (Stream fsInput = File.OpenRead(archivePath))
             using (var zf = new ZipFile(fsInput))
             {
