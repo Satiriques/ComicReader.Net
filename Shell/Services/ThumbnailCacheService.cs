@@ -35,15 +35,30 @@ namespace ComicReader.Net.Shell.Services
             _thumbnailCache = new Dictionary<int, byte[]>();
         }
 
+        private readonly object myLock = new object();
+
         public async Task<byte[]> GetThumbnailAsync(int bookId)
         {
-            if (!_thumbnailCache.TryGetValue(bookId, out byte[] thumbnail))
+            bool getThumbnail = false;
+            byte[] thumbnail = null;
+
+            lock (myLock)
             {
-                var thumbnailEntity = await _dataService.GetThumbnailAsync(bookId);
-                thumbnail = File.ReadAllBytes(thumbnailEntity.Path);
-                _thumbnailCache.Add(bookId, thumbnail);
+                if (!_thumbnailCache.TryGetValue(bookId, out thumbnail))
+                {
+                    getThumbnail = true;
+                    _thumbnailCache.Add(bookId, thumbnail);
+                }
             }
 
+            if (getThumbnail)
+            {
+                if (await _dataService.ThumbnailExistsAsync(bookId))
+                {
+                    var thumbnailEntity = await _dataService.GetThumbnailAsync(bookId);
+                    thumbnail = File.ReadAllBytes(thumbnailEntity.Path);
+                }
+            }
             return thumbnail;
         }
 
@@ -51,33 +66,32 @@ namespace ComicReader.Net.Shell.Services
         {
             await Task.Run(() =>
             {
-                string currentFolder = Path.Combine(folder, book.Id.ToString());
-                Console.WriteLine($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
-                Directory.CreateDirectory(currentFolder);
-                _zipService.ExtractBook(book, currentFolder);
-                var files = Directory.GetFiles(currentFolder);
-
                 var cacheFilePath = Path.Combine(_cacheFolder, book.Id + ".cache");
-                if (File.Exists(cacheFilePath))
+                if (File.Exists(cacheFilePath) && overwrite)
                 {
-                    if (overwrite)
-                    {
-                        Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
-                        File.Delete(cacheFilePath);
-                        Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
-                        _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
-                        //File.Move(files[0], cacheFilePath);
-                    }
-                }
-                else
-                {
+                    string currentFolder = Path.Combine(folder, book.Id.ToString());
+                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
+                    Directory.CreateDirectory(currentFolder);
+                    _zipService.ExtractBook(book, currentFolder);
+                    var files = Directory.GetFiles(currentFolder);
+
+                    //if (overwrite)
+                    //{
+                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
+                    File.Delete(cacheFilePath);
                     Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
                     _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
                     //File.Move(files[0], cacheFilePath);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
+                    //    _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
+                    //    //File.Move(files[0], cacheFilePath);
+                    //}
+                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
+                    Directory.Delete(currentFolder, true);
                 }
-
-                Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
-                Directory.Delete(currentFolder, true);
             }).ConfigureAwait(false);
         }
 
@@ -96,7 +110,7 @@ namespace ComicReader.Net.Shell.Services
             }
             Directory.CreateDirectory(folderName);
 
-            await Task.WhenAll(books.Select(b => CacheBookAsync(b, folderName, true))).ConfigureAwait(false);
+            await Task.WhenAll(books.Select(b => CacheBookAsync(b, folderName, false))).ConfigureAwait(false);
         }
     }
 }

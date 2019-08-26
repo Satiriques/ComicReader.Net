@@ -4,12 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ComicReader.Net.CenterGrid.Views"
+             xmlns:classes="clr-namespace:ComicReader.Net.CenterGrid.Classes"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              MouseDoubleClick="UserControl_MouseDoubleClick">
     <Border BorderBrush="Black" BorderThickness="1">
-        <StackPanel MaxWidth="256" Margin="2">
-            <Image Source="{Binding Thumbnail}" x:Name="image" />
+        <StackPanel Width="256" Height="Auto" Margin="2">
+            <Image x:Name="_thumbnail">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=(classes:MyScrollViewer.IsInViewport), RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                             Value="True">
+                                <Setter Property="Source" Value="{Binding Thumbnail, Mode=OneTime}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
             <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
         </StackPanel>
     </Border>

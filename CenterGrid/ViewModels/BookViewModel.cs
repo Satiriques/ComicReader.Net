@@ -43,7 +43,14 @@ namespace ComicReader.Net.CenterGrid.ViewModels
             {
                 if (_thumbnail == null)
                 {
+                    Console.WriteLine("loading thumbnail " + _id.ToString());
                     byte[] image = _thumbnailCacheService.GetThumbnailAsync(_id).Result;
+
+                    if (image == null)
+                    {
+                        return null;
+                    }
+
                     var bitmapImage = new BitmapImage();
                     bitmapImage.BeginInit();
                     bitmapImage.StreamSource = new MemoryStream(image);

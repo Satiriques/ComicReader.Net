@@ -7,6 +7,7 @@ using ComicReader.Net.Common.Models;
 using ComicReader.Net.Common.Interfaces;
 using System.Linq;
 using ComicReader.Common;
+using System.Collections.Generic;
 
 namespace ComicReader.Net.CenterGrid.ViewModels
 {
@@ -32,12 +33,31 @@ namespace ComicReader.Net.CenterGrid.ViewModels
 
         public ObservableCollection<BookViewModel> Books { get; set; }
 
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText; set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    Books = new ObservableCollection<BookViewModel>(
+                        _bookViewModels.Where(x => x.Name.Contains(_searchText)));
+                    OnPropertyChanged(nameof(Books));
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private IEnumerable<BookViewModel> _bookViewModels;
+
         private async void UpdateThumbnails()
         {
             var books = await _dataService.GetAllBooksAsync();
-            var bookViewModels = books.Select(x => new BookViewModel(x, _thumbnailCacheService, _fileService));
+            _bookViewModels = books.Select(x => new BookViewModel(x, _thumbnailCacheService, _fileService));
 
-            Books = new ObservableCollection<BookViewModel>(bookViewModels);
+            Books = new ObservableCollection<BookViewModel>(_bookViewModels);
             OnPropertyChanged(nameof(Books));
         }
     }

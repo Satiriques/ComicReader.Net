@@ -43,6 +43,14 @@ namespace ComicReader.Net.Shell.Services
             }
         }
 
+        public async Task<bool> ThumbnailExistsAsync(int bookId)
+        {
+            using (var db = _dbContext())
+            {
+                return await db.Thumbnails.AsNoTracking().AnyAsync(x => x.BookId == bookId);
+            }
+        }
+
         public async Task AddBooksAsync(IEnumerable<string> files)
         {
             using (var db = _dbContext())

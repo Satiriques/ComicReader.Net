@@ -24,5 +24,17 @@ namespace ComicReader.Net.CenterGrid.Views
         {
             InitializeComponent();
         }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (sender is TextBox textBox)
+                {
+                    var binding = textBox.GetBindingExpression(TextBox.TextProperty);
+                    binding.UpdateSource();
+                }
+            }
+        }
     }
 }

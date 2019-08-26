@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:ComicReader.Net.CenterGrid.ViewModels"
              xmlns:local="clr-namespace:ComicReader.Net.CenterGrid.Views"
+             xmlns:classes="clr-namespace:ComicReader.Net.CenterGrid.Classes"
+             xmlns:controls="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -16,12 +18,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ListView ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Top">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Margin="0" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" KeyDown="TextBox_KeyDown" />
+        <ListView Grid.Row="1" VirtualizingPanel.IsContainerVirtualizable="True" ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Top" IsTextSearchEnabled="True">
+            <ListView.Template>
+                <ControlTemplate>
+                    <classes:MyScrollViewer IsDeferredScrollingEnabled="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel IsItemsHost="True" />
+                    </classes:MyScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
         </ListView>
     </Grid>
 </UserControl>
