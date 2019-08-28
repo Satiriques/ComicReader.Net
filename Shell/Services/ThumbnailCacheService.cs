@@ -36,6 +36,7 @@ namespace ComicReader.Net.Shell.Services
         }
 
         private readonly object myLock = new object();
+        private List<Thumbnail> _thumbnails;
 
         public async Task<byte[]> GetThumbnailAsync(int bookId)
         {
@@ -53,9 +54,14 @@ namespace ComicReader.Net.Shell.Services
 
             if (getThumbnail)
             {
-                if (await _dataService.ThumbnailExistsAsync(bookId))
+                if (_thumbnails == null)
                 {
-                    var thumbnailEntity = await _dataService.GetThumbnailAsync(bookId);
+                    _thumbnails = await _dataService.GetAllThumbnailsAsync();
+                }
+
+                if (_thumbnails.Any(x => x.BookId == bookId))
+                {
+                    var thumbnailEntity = _thumbnails.FirstOrDefault(x => x.BookId == bookId);
                     thumbnail = File.ReadAllBytes(thumbnailEntity.Path);
                 }
             }
@@ -67,13 +73,22 @@ namespace ComicReader.Net.Shell.Services
             await Task.Run(() =>
             {
                 var cacheFilePath = Path.Combine(_cacheFolder, book.Id + ".cache");
-                if (File.Exists(cacheFilePath) && overwrite)
+                if (!File.Exists(cacheFilePath) || (File.Exists(cacheFilePath) && overwrite))
                 {
                     string currentFolder = Path.Combine(folder, book.Id.ToString());
                     Console.WriteLine($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
                     Directory.CreateDirectory(currentFolder);
-                    _zipService.ExtractBook(book, currentFolder);
-                    var files = Directory.GetFiles(currentFolder);
+                    try
+                    {
+                        _zipService.ExtractBook(book, currentFolder);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"Failed to extract book : {book.Path}");
+                        return;
+                    }
+
+                    var files = Directory.GetFiles(currentFolder).Where(x => !x.EndsWith("xml")).ToArray();
 
                     //if (overwrite)
                     //{

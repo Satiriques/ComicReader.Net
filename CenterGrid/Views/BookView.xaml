@@ -10,8 +10,8 @@
              MouseDoubleClick="UserControl_MouseDoubleClick">
     <Border BorderBrush="Black" BorderThickness="1">
         <StackPanel Width="256" Height="Auto" Margin="2">
-            <Image x:Name="_thumbnail">
-                <Image.Style>
+            <Image x:Name="_thumbnail" Source="{Binding Thumbnail}">
+                <!--<Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=(classes:MyScrollViewer.IsInViewport), RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
@@ -20,7 +20,7 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Image.Style>
+                </Image.Style>-->
             </Image>
             <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
         </StackPanel>

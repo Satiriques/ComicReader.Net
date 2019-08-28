@@ -15,5 +15,7 @@ namespace ComicReader.Net.Common.Interfaces
         Task<Thumbnail> GetThumbnailAsync(int bookId);
 
         Task<bool> ThumbnailExistsAsync(int bookId);
+
+        Task<List<Thumbnail>> GetAllThumbnailsAsync();
     }
 }

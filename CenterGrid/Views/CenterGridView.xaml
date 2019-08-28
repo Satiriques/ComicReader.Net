@@ -24,14 +24,35 @@
         </Grid.RowDefinitions>
 
         <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" KeyDown="TextBox_KeyDown" />
-        <ListView Grid.Row="1" VirtualizingPanel.IsContainerVirtualizable="True" ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Top" IsTextSearchEnabled="True">
-            <ListView.Template>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Books}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  VerticalContentAlignment="Top"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Center"
+                  IsTextSearchEnabled="True"
+                  VirtualizingPanel.IsContainerVirtualizable="True"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.CacheLengthUnit="Page"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.CacheLength="2,2">
+            <!--<ListView.Template>
                 <ControlTemplate>
                     <classes:MyScrollViewer IsDeferredScrollingEnabled="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <WrapPanel IsItemsHost="True" />
                     </classes:MyScrollViewer>
                 </ControlTemplate>
-            </ListView.Template>
+            </ListView.Template>-->
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            CanHorizontallyScroll="True"
+                                            CanVerticallyScroll="False"
+                                            PreviewMouseWheel="VirtualizingStackPanel_PreviewMouseWheel" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
         </ListView>
     </Grid>
 </UserControl>
