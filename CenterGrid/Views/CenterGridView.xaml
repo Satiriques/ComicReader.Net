@@ -24,12 +24,13 @@
         </Grid.RowDefinitions>
 
         <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" KeyDown="TextBox_KeyDown" />
+
         <ItemsControl Grid.Row="1"
                   ItemsSource="{Binding Books}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   VerticalContentAlignment="Top"
                   VerticalAlignment="Stretch"
-                  HorizontalAlignment="Center"
+                  HorizontalAlignment="Stretch"
                   IsTextSearchEnabled="True"
                   VirtualizingPanel.IsContainerVirtualizable="True"
                   VirtualizingPanel.IsVirtualizing="True"
@@ -58,7 +59,7 @@
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ListView ItemsSource="{Binding}">
+                    <ListView ItemsSource="{Binding}" HorizontalContentAlignment="Center">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="1" />
