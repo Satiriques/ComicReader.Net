@@ -31,7 +31,7 @@ namespace ComicReader.Net.CenterGrid.ViewModels
             UpdateThumbnails();
         }
 
-        public ObservableCollection<BookViewModel> Books { get; set; }
+        public ObservableCollection<ObservableCollection<BookViewModel>> Books { get; set; }
 
         private string _searchText;
 
@@ -42,7 +42,7 @@ namespace ComicReader.Net.CenterGrid.ViewModels
                 if (_searchText != value)
                 {
                     _searchText = value;
-                    Books = new ObservableCollection<BookViewModel>(
+                    Books = GroupViewModels(
                         _bookViewModels.Where(x => x.Name.Contains(_searchText)));
                     OnPropertyChanged(nameof(Books));
                     OnPropertyChanged();
@@ -57,8 +57,18 @@ namespace ComicReader.Net.CenterGrid.ViewModels
             var books = await _dataService.GetAllBooksAsync();
             _bookViewModels = books.Select(x => new BookViewModel(x, _thumbnailCacheService, _fileService));
 
-            Books = new ObservableCollection<BookViewModel>(_bookViewModels);
+            Books = GroupViewModels(_bookViewModels);
             OnPropertyChanged(nameof(Books));
+        }
+
+        private ObservableCollection<ObservableCollection<BookViewModel>> GroupViewModels(IEnumerable<BookViewModel> bookViewModels)
+        {
+            int i = 0;
+            var query = from s in bookViewModels
+                        let num = i++
+                        group s by num / 5 into g
+                        select new ObservableCollection<BookViewModel>(g);
+            return new ObservableCollection<ObservableCollection<BookViewModel>>(query);
         }
     }
 }

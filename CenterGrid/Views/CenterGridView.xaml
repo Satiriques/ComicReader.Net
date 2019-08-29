@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" KeyDown="TextBox_KeyDown" />
-        <ListView Grid.Row="1"
+        <ItemsControl Grid.Row="1"
                   ItemsSource="{Binding Books}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   VerticalContentAlignment="Top"
@@ -35,24 +35,37 @@
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.CacheLengthUnit="Page"
                   VirtualizingPanel.VirtualizationMode="Recycling"
-                  VirtualizingPanel.CacheLength="2,2">
-            <!--<ListView.Template>
-                <ControlTemplate>
-                    <classes:MyScrollViewer IsDeferredScrollingEnabled="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                        <WrapPanel IsItemsHost="True" />
-                    </classes:MyScrollViewer>
-                </ControlTemplate>
-            </ListView.Template>-->
-
-            <ListView.ItemsPanel>
+                  VirtualizingPanel.CacheLength="2,2"
+                  ScrollViewer.CanContentScroll="True">
+            <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            CanHorizontallyScroll="True"
-                                            CanVerticallyScroll="False"
-                                            PreviewMouseWheel="VirtualizingStackPanel_PreviewMouseWheel" />
+                    <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+                            Padding="{TemplateBinding Control.Padding}"
+                            BorderBrush="{TemplateBinding Border.BorderBrush}"
+                            Background="{TemplateBinding Panel.Background}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ListView ItemsSource="{Binding}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
