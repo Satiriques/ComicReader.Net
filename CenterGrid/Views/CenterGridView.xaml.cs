@@ -41,8 +41,7 @@ namespace ComicReader.Net.CenterGrid.Views
 
         private void ItemsControl_CleanUpVirtualizedItem(object sender, CleanUpVirtualizedItemEventArgs e)
         {
-            var books = e.Value as ObservableCollection<BookViewModel>;
-            foreach (var book in books)
+            foreach (var book in e.Value as ObservableCollection<BookViewModel>)
             {
                 book.Cleanup();
             }
