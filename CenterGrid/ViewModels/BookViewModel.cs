@@ -63,5 +63,11 @@ namespace ComicReader.Net.CenterGrid.ViewModels
                 return _thumbnail;
             }
         }
+
+        internal void Cleanup()
+        {
+            _thumbnailCacheService.RemoveFromCache(_id);
+            _thumbnail = null;
+        }
     }
 }

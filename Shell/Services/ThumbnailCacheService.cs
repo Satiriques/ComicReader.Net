@@ -68,6 +68,15 @@ namespace ComicReader.Net.Shell.Services
             return thumbnail;
         }
 
+        public void RemoveFromCache(int bookId)
+        {
+            if (_thumbnailCache.TryGetValue(bookId, out byte[] _))
+            {
+                _thumbnailCache[bookId] = null;
+                _thumbnailCache.Remove(bookId);
+            }
+        }
+
         private async Task CacheBookAsync(Book book, string folder, bool overwrite)
         {
             await Task.Run(() =>

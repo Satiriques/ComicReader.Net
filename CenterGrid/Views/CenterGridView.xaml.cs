@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ComicReader.Net.CenterGrid.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,15 @@ namespace ComicReader.Net.CenterGrid.Views
             else
                 scrollviewer.LineRight();
             e.Handled = true;
+        }
+
+        private void ItemsControl_CleanUpVirtualizedItem(object sender, CleanUpVirtualizedItemEventArgs e)
+        {
+            var books = e.Value as ObservableCollection<BookViewModel>;
+            foreach (var book in books)
+            {
+                book.Cleanup();
+            }
         }
     }
 }

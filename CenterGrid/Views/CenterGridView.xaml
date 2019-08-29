@@ -36,7 +36,8 @@
                   VirtualizingPanel.CacheLengthUnit="Page"
                   VirtualizingPanel.VirtualizationMode="Recycling"
                   VirtualizingPanel.CacheLength="2,2"
-                  ScrollViewer.CanContentScroll="True">
+                  ScrollViewer.CanContentScroll="True"
+                  VirtualizingStackPanel.CleanUpVirtualizedItem="ItemsControl_CleanUpVirtualizedItem">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel />
