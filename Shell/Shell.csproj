@@ -92,6 +92,7 @@
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\TaskSchedulerService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="Services\ZipService.cs" />
     <Compile Include="ShellModule.cs" />

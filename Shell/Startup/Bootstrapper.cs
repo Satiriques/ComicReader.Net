@@ -4,11 +4,13 @@ using ComicReader.Net.CenterGrid;
 using ComicReader.Net.Common.Classes;
 using ComicReader.Net.Common.Interfaces;
 using Prism.Events;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ComicReader.Net.Shell.Startup
 {
     public class Bootstrapper
     {
+        [ExcludeFromCodeCoverage]
         public IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
