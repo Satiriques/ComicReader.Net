@@ -14,16 +14,19 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         private readonly IUserConfig _userConfig;
         private readonly IDataService _dataService;
         private readonly IZipService _zipService;
+        private readonly ITaskSchedulerService _taskSchedulerService;
         private string selectedItem;
 
         public LibrariesSettingsViewModel(IWindowService windowService,
                                           IUserConfig config,
                                           IDataService dataService,
-                                          IZipService zipService)
+                                          IZipService zipService,
+                                          ITaskSchedulerService taskSchedulerService)
         {
             _windowService = windowService;
             _dataService = dataService;
             _zipService = zipService;
+            _taskSchedulerService = taskSchedulerService;
             _userConfig = config;
 
             Libraries = new ObservableCollection<string>(config.Libraries);
@@ -73,12 +76,15 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
             Libraries.Remove(SelectedItem);
         }
 
-        private async void SyncCommandExecute()
+        private void SyncCommandExecute()
         {
-            var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
-            await _dataService.AddBooksAsync(files);
-            var books = await _dataService.GetAllBooksAsync();
-            await _zipService.ExtractBookByIdAsync(books);
+            _taskSchedulerService.QueueTask(new System.Threading.Tasks.Task(async () =>
+            {
+                var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
+                await _dataService.AddBooksAsync(files);
+                var books = await _dataService.GetAllBooksAsync();
+                await _zipService.ExtractBookByIdAsync(books);
+            }));
         }
 
         private bool RemoveCommandCanExecute()

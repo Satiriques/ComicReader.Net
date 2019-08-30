@@ -18,6 +18,7 @@ namespace ComicReader.Net.Shell
             builder.RegisterType<ThumbnailCacheService>().As<IThumbnailCacheService>();
             builder.RegisterType<ImageService>().As<IImageService>();
             builder.RegisterType<FileService>().As<IFileService>();
+            builder.RegisterType<TaskSchedulerService>().As<ITaskSchedulerService>().SingleInstance();
 
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();

@@ -17,6 +17,7 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         private readonly IThumbnailCacheService _thumbnailCacheService;
         private readonly IDataService _dataService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ITaskSchedulerService _taskSchedulerService;
 
         public string Title => "Gallery";
 
@@ -24,20 +25,25 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         public GridSettingsViewModel(IThumbnailCacheService thumbnailCacheService,
                                      IDataService dataService,
-                                     IEventAggregator eventAggregator)
+                                     IEventAggregator eventAggregator,
+                                     ITaskSchedulerService taskSchedulerService)
         {
             GenerateCacheCommand = new DelegateCommand(GenerateCachesExecute);
             _thumbnailCacheService = thumbnailCacheService;
             _dataService = dataService;
             _eventAggregator = eventAggregator;
+            _taskSchedulerService = taskSchedulerService;
         }
 
-        private async void GenerateCachesExecute()
+        private void GenerateCachesExecute()
         {
-            var books = await _dataService.GetAllBooksAsync();
-            await _thumbnailCacheService.CacheBooksAsync(books);
-            await _dataService.UpdateCachesAsync();
-            _eventAggregator.GetEvent<PostCachesUpdatedEvent>().Publish();
+            _taskSchedulerService.QueueTask(new Task(async () =>
+                {
+                    var books = await _dataService.GetAllBooksAsync();
+                    await _thumbnailCacheService.CacheBooksAsync(books);
+                    await _dataService.UpdateCachesAsync();
+                    _eventAggregator.GetEvent<PostCachesUpdatedEvent>().Publish();
+                }));
         }
     }
 }

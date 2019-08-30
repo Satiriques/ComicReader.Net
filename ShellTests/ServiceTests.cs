@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ShellTests
@@ -29,6 +30,8 @@ namespace ShellTests
             var tasks = new Task[] { taskAddCharA, taskAddCharB };
 
             taskScheduler.QueueTask(taskAddCharA);
+
+            Thread.Sleep(50);
 
             taskScheduler.QueueTask(taskAddCharB);
 
