@@ -1,16 +1,16 @@
 ﻿using System;
 using ComicReader.Net.ApplicationMenu.Interfaces;
 using ComicReader.Net.CenterGrid.Interfaces;
+using ComicReader.Net.Common.Models;
 using ComicReader.Net.Shell.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NUnit.Framework;
 
 namespace ShellTests
 {
-    [TestClass]
     public class ViewModelTests
     {
-        [TestMethod]
+        [Test]
         public void MainViewModelTest()
         {
             var fileMenuViewModel = new Mock<IFileMenuViewModel>();
@@ -19,6 +19,16 @@ namespace ShellTests
 
             Assert.IsNotNull(viewModel.CenterGridViewModel);
             Assert.IsNotNull(viewModel.FileMenuViewModel);
+        }
+
+        [Test]
+        public void BookViewModelTest()
+        {
+            var book = new Book() { Name = "test", Id = 1 };
+            var bookViewModel = new BookViewModel(book);
+
+            Assert.AreEqual(book.Name, bookViewModel.Name);
+            Assert.AreEqual(book.Id, bookViewModel.Id);
         }
     }
 }

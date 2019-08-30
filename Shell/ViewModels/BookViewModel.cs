@@ -10,7 +10,7 @@ namespace ComicReader.Net.Shell.ViewModels
             Name = book.Name;
         }
 
-        public string Name { get; private set; }
-        public int Id { get; private set; }
+        public string Name { get; }
+        public int Id { get; }
     }
 }
