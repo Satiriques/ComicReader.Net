@@ -9,6 +9,11 @@ namespace ComicReader.Net.Shell.Database
             IDatabaseInitializer<ComicReaderDbContext> initializer = null)
             : base(connectionString)
         {
+            if (initializer == null)
+            {
+                //initializer = new CreateDatabaseIfNotExists<ComicReaderDbContext>();
+                initializer = new DropCreateDatabaseIfModelChanges<ComicReaderDbContext>();
+            }
             System.Data.Entity.Database.SetInitializer(initializer);
         }
 

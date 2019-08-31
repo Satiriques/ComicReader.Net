@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComicReader.Net.Common.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace ComicReader.Net.Shell.Services
 {
-    public class ParserService
+    public class ParserService : IParserService
     {
         public ComicInfo ParseComicRackMetaData(string path)
         {

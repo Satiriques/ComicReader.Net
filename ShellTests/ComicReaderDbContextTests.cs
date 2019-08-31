@@ -33,6 +33,20 @@ namespace ShellTests
             await _db.SaveChangesAsync();
         }
 
+        [Test]
+        public async Task AddSameCharacterTwoBooksTest()
+        {
+            var books = new Book[] { new Book() { Name = "My Book", Path = @"c:\myFile.txt" },
+                                     new Book() { Name = "My Book Again", Path = @"c:\myFile2.txt"}};
+
+            _db.Books.AddRange(books);
+
+            _db.Characters.Add(new Character() { Book = books[0], CharacterId = 0, Name = "George Washington" });
+            _db.Characters.Add(new Character() { Book = books[1], CharacterId = 1, Name = "George Washington" });
+
+            await _db.SaveChangesAsync();
+        }
+
         //[Test]
         public void InvalidAddCharacterMissingNameTest()
         {

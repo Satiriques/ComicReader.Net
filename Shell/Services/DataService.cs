@@ -4,6 +4,7 @@ using ComicReader.Net.Shell.Database;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,21 @@ namespace ComicReader.Net.Shell.Services
     {
         private readonly Func<ComicReaderDbContext> _dbContext;
         private readonly IFileService _fileService;
+        private readonly IZipService _zipService;
+        private readonly IParserService _parserService;
         private readonly string _cacheFolder;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public DataService(Func<ComicReaderDbContext> dbContext,
-                           IFileService fileService)
+                           IFileService fileService,
+                           IZipService zipService,
+                           IParserService parserService
+                           )
         {
             _dbContext = dbContext;
             _fileService = fileService;
+            _zipService = zipService;
+            _parserService = parserService;
             _cacheFolder = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData),
                 "ComicReader.Net",
@@ -63,15 +71,41 @@ namespace ComicReader.Net.Shell.Services
 
         public async Task AddBooksAsync(IEnumerable<string> files)
         {
+            var tmpPath = Path.Combine(Path.GetTempPath(), "ComicReader.Net_", Process.GetCurrentProcess().Id.ToString());
+
             using (var db = _dbContext())
             {
+                List<Book> booksToAdd = new List<Book>();
+                List<Character> charactersToAdd = new List<Character>();
+
                 foreach (var file in files)
                 {
                     if (!await db.Books.AnyAsync(x => x.Path == file))
                     {
-                        db.Books.Add(new Book() { Path = file });
+                        var book = new Book() { Path = file };
+                        _zipService.ExtractBook(book, tmpPath);
+                        if (Directory.GetFiles(tmpPath).Length > 0)
+                        {
+                            booksToAdd.Add(book);
+                            if (File.Exists(Path.Combine(tmpPath, "ComicInfo.xml")))
+                            {
+                                log.InfoFormat("Metadata found for file: {0}", Path.GetFileNameWithoutExtension(file));
+                                var metadata = _parserService.ParseComicRackMetaData(Path.Combine(tmpPath, "ComicInfo.xml"));
+                                if (metadata.CharactersList?.Any() == true)
+                                {
+                                    log.InfoFormat("Adding characters: {0}", string.Join(",", metadata.CharactersList));
+                                    charactersToAdd.AddRange(metadata.CharactersList.Select(x =>
+                                    new Character() { Book = book, Name = x }));
+                                }
+                            }
+                        }
                     }
                 }
+
+                db.Books.AddRange(booksToAdd);
+
+                db.Characters.AddRange(charactersToAdd);
+
                 await db.SaveChangesAsync();
             }
         }

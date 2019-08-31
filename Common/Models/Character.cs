@@ -6,6 +6,7 @@ namespace ComicReader.Net.Common.Models
     public class Character
     {
         [Key, Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CharacterId { get; set; }
 
         [Key, Column(Order = 1)]

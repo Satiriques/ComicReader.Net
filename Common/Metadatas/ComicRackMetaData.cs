@@ -60,7 +60,7 @@ public partial class ComicInfo
     [XmlIgnore]
     public IEnumerable<string> CharactersList
     {
-        get { return Characters.Split(',').Select(x => x.Trim()); }
+        get { return string.IsNullOrEmpty(Characters) ? Enumerable.Empty<string>() : Characters.Split(',').Select(x => x.Trim()); }
         set { Characters = string.Join(",", value); }
     }
 
