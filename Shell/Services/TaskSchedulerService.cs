@@ -13,18 +13,18 @@ namespace ComicReader.Net.Shell.Services
     {
         public int CurrentlyQueuedTasks { get { return _Queue.Count; } }
 
-        private BlockingCollection<Action> _Queue = new BlockingCollection<Action>();
+        private BlockingCollection<Func<Task>> _Queue = new BlockingCollection<Func<Task>>();
 
         public TaskSchedulerService()
         {
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
                 while (true)
                 {
                     try
                     {
                         var action = _Queue.Take();
-                        action();
+                        await action();
                     }
                     catch (InvalidOperationException)
                     {
@@ -38,7 +38,7 @@ namespace ComicReader.Net.Shell.Services
             });
         }
 
-        public void QueueTask(Action action)
+        public void QueueTask(Func<Task> action)
         {
             _Queue.Add(action);
         }

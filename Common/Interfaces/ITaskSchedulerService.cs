@@ -8,6 +8,6 @@ namespace ComicReader.Net.Common.Interfaces
 {
     public interface ITaskSchedulerService
     {
-        void QueueTask(Action action);
+        void QueueTask(Func<Task> action);
     }
 }

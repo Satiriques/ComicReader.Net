@@ -37,11 +37,11 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         private void GenerateCachesExecute()
         {
-            _taskSchedulerService.QueueTask(() =>
+            _taskSchedulerService.QueueTask(async () =>
                 {
                     var books = _dataService.GetAllBooksAsync().Result;
-                    _thumbnailCacheService.CacheBooksAsync(books);
-                    _dataService.UpdateCachesAsync();
+                    await _thumbnailCacheService.CacheBooksAsync(books);
+                    await _dataService.UpdateCachesAsync();
                     _eventAggregator.GetEvent<PostCachesUpdatedEvent>().Publish();
                 });
         }

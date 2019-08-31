@@ -78,12 +78,12 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
 
         private void SyncCommandExecute()
         {
-            _taskSchedulerService.QueueTask(() =>
+            _taskSchedulerService.QueueTask(async () =>
             {
                 var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
-                _dataService.AddBooksAsync(files);
+                await _dataService.AddBooksAsync(files);
                 var books = _dataService.GetAllBooksAsync().Result;
-                _zipService.ExtractBookByIdAsync(books);
+                await _zipService.ExtractBookByIdAsync(books);
             });
         }
 
