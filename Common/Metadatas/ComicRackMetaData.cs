@@ -1,4 +1,8 @@
 ﻿// NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
+
 [System.Serializable()]
 [System.ComponentModel.DesignerCategory("code")]
 [System.Xml.Serialization.XmlType(AnonymousType = true)]
@@ -8,6 +12,13 @@ public partial class ComicInfo
     public string Title { get; set; }
 
     public string Series { get; set; }
+
+    [XmlIgnore]
+    public IEnumerable<string> SeriesList
+    {
+        get { return Series.Split(',').Select(x => x.Trim()); }
+        set { Series = string.Join(",", value); }
+    }
 
     public string Summary { get; set; }
 
@@ -27,6 +38,13 @@ public partial class ComicInfo
 
     public string Genre { get; set; }
 
+    [XmlIgnore]
+    public IEnumerable<string> GenreList
+    {
+        get { return Genre.Split(',').Select(x => x.Trim()); }
+        set { Genre = string.Join(",", value); }
+    }
+
     public string Web { get; set; }
 
     public string LanguageISO { get; set; }
@@ -38,6 +56,13 @@ public partial class ComicInfo
     public string Manga { get; set; }
 
     public string Characters { get; set; }
+
+    [XmlIgnore]
+    public IEnumerable<string> CharactersList
+    {
+        get { return Characters.Split(',').Select(x => x.Trim()); }
+        set { Characters = string.Join(",", value); }
+    }
 
     public int PageCount { get; set; }
 
