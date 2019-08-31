@@ -15,6 +15,7 @@ namespace ComicReader.Net.Shell.Services
         private readonly Func<ComicReaderDbContext> _dbContext;
         private readonly IFileService _fileService;
         private readonly string _cacheFolder;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public DataService(Func<ComicReaderDbContext> dbContext,
                            IFileService fileService)
@@ -29,6 +30,7 @@ namespace ComicReader.Net.Shell.Services
 
         public async Task<List<Book>> GetAllBooksAsync()
         {
+            log.Info("GetAllBooksAsync");
             using (var db = _dbContext())
             {
                 return await db.Books.AsNoTracking().ToListAsync();
@@ -93,7 +95,7 @@ namespace ComicReader.Net.Shell.Services
                         }
                         else
                         {
-                            Console.WriteLine($"adding thumbnail with key {bookId}");
+                            log.Debug($"adding thumbnail with key {bookId}");
                             db.Thumbnails.Add(new Thumbnail() { Path = thumbnailPath, BookId = bookId });
                         }
                     }

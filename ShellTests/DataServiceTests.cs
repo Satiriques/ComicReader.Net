@@ -31,7 +31,6 @@ namespace ShellTests
         public async Task AddBookTest()
         {
             await _dataService.AddBooksAsync(new string[] { @"c:\randomFile.txt" });
-            Console.WriteLine("AddBookTest");
         }
 
         [Test]

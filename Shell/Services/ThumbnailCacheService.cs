@@ -16,6 +16,7 @@ namespace ComicReader.Net.Shell.Services
         private readonly IDataService _dataService;
         private readonly string _cacheFolder;
         private Dictionary<int, byte[]> _thumbnailCache;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ThumbnailCacheService(IZipService zipService,
                                      IImageService imageService,
@@ -85,7 +86,7 @@ namespace ComicReader.Net.Shell.Services
                 if (!File.Exists(cacheFilePath) || (File.Exists(cacheFilePath) && overwrite))
                 {
                     string currentFolder = Path.Combine(folder, book.Id.ToString());
-                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
+                    log.Debug($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
                     Directory.CreateDirectory(currentFolder);
                     try
                     {
@@ -93,27 +94,17 @@ namespace ComicReader.Net.Shell.Services
                     }
                     catch
                     {
-                        Console.WriteLine($"Failed to extract book : {book.Path}");
+                        log.Error($"Failed to extract book : {book.Path}");
                         return;
                     }
 
                     var files = Directory.GetFiles(currentFolder).Where(x => !x.EndsWith("xml")).ToArray();
 
-                    //if (overwrite)
-                    //{
-                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
+                    log.Debug($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
                     File.Delete(cacheFilePath);
-                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
+                    log.Debug($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
                     _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
-                    //File.Move(files[0], cacheFilePath);
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
-                    //    _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
-                    //    //File.Move(files[0], cacheFilePath);
-                    //}
-                    Console.WriteLine($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
+                    log.Debug($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
                     Directory.Delete(currentFolder, true);
                 }
             }).ConfigureAwait(false);

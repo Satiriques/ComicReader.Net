@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ComicInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Test Title</Title>
+  <Series>Test Series</Series>
+  <Summary>Test Summary</Summary>
+  <Writer>Test Writer</Writer>
+  <Penciller>Test Penciller</Penciller>
+  <Inker>Test Inker</Inker>
+  <Letterer>Test Letterer</Letterer>
+  <CoverArtist>Test CoverArtist</CoverArtist>
+  <Editor>Test Editor</Editor>
+  <Publisher>Test Publisher</Publisher>
+  <Genre>Test Genre1, Test Genre2, Test Genre3</Genre>
+  <Web>https://google.com</Web>
+  <LanguageISO>en</LanguageISO>
+  <Translator>Test Translator</Translator>
+  <AgeRating>Test Age Rating</AgeRating>
+  <Manga>No</Manga>
+  <Characters>Test Character1, Test Character2</Characters>
+  <PageCount>2</PageCount>
+  <Pages>
+    <Page Image="0" ImageSize="10000" ImageWidth="1000" ImageHeight="1000" Key="C:\page1.png" />
+    <Page Image="1" ImageSize="10000" ImageWidth="1000" ImageHeight="1000" Key="C:\page2.png" />
+  </Pages>
+</ComicInfo>

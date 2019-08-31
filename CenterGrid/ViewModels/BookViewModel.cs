@@ -18,6 +18,7 @@ namespace ComicReader.Net.CenterGrid.ViewModels
         private readonly int _id;
         private readonly string _path;
         private BitmapSource _thumbnail;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public BookViewModel(Book book,
                              IThumbnailCacheService thumbnailCacheService,
@@ -43,7 +44,7 @@ namespace ComicReader.Net.CenterGrid.ViewModels
             {
                 if (_thumbnail == null)
                 {
-                    Console.WriteLine("loading thumbnail " + _id.ToString());
+                    log.Debug("loading thumbnail " + _id.ToString());
                     byte[] image = _thumbnailCacheService.GetThumbnailAsync(_id).Result;
 
                     if (image == null)

@@ -12,9 +12,11 @@ namespace ComicReader.Net.Shell.Services
 {
     public class ZipService : IZipService
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public void ExtractZipFile(string archivePath, string password, string outFolder)
         {
-            Console.WriteLine($"[{Process.GetCurrentProcess().Id}] unzipping archive: {archivePath} to folder: {outFolder}");
+            log.Debug($"[{Process.GetCurrentProcess().Id}] unzipping archive: {archivePath} to folder: {outFolder}");
 
             using (Stream fsInput = File.OpenRead(archivePath))
             using (var zf = new ZipFile(fsInput))
