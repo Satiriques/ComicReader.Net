@@ -11,5 +11,7 @@ namespace ComicReader.Net.Common.Interfaces
         IEnumerable<string> GetAllThumbnails();
 
         void OpenFile(string path);
+
+        IEnumerable<string> GetThumbnailsFromBookIds(IEnumerable<int> ids);
     }
 }

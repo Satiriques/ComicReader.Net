@@ -112,9 +112,20 @@ namespace ComicReader.Net.Shell.Services
 
         public async Task UpdateCachesAsync()
         {
-            var thumbnails = _fileService.GetAllThumbnails().ToArray();
+            Book[] books = null;
+            using (var db = _dbContext())
+            {
+                books = await db.Books.AsNoTracking().ToArrayAsync();
+            }
 
-            if (thumbnails.Length > 0)
+            if (!(books?.Any() == true))
+            {
+                return;
+            }
+
+            var thumbnails = _fileService.GetThumbnailsFromBookIds(books.Select(x => x.Id));
+
+            if (thumbnails.Any())
             {
                 using (var db = _dbContext())
                 {

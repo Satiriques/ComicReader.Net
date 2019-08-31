@@ -26,6 +26,11 @@ namespace ComicReader.Net.Shell.Services
             return Directory.GetFiles(_cacheFolder);
         }
 
+        public IEnumerable<string> GetThumbnailsFromBookIds(IEnumerable<int> ids)
+        {
+            return GetAllThumbnails().Where(x => ids.Select(y => y.ToString()).Contains(Path.GetFileNameWithoutExtension(x)));
+        }
+
         public void OpenFile(string path)
         {
             if (File.Exists(path))
