@@ -5,6 +5,7 @@ namespace ComicReader.Net.Common.Models
 {
     public class Thumbnail
     {
+        [Key]
         public int ThumbnailId { get; set; }
 
         [Required]

@@ -46,5 +46,10 @@ namespace ShellTests
             CollectionAssert.AllItemsAreNotNull(books);
             Assert.AreEqual(2, books.Count);
         }
+
+        [Test]
+        public async Task AddCharacterAsync()
+        {
+        }
     }
 }
