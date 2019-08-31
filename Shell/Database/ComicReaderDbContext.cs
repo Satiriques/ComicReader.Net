@@ -5,8 +5,11 @@ namespace ComicReader.Net.Shell.Database
 {
     public class ComicReaderDbContext : DbContext
     {
-        public ComicReaderDbContext() : base("ComicReaderDb")
+        public ComicReaderDbContext(string connectionString = "ComicReaderDb",
+            IDatabaseInitializer<ComicReaderDbContext> initializer = null)
+            : base(connectionString)
         {
+            System.Data.Entity.Database.SetInitializer(initializer);
         }
 
         public DbSet<Book> Books { get; set; }
