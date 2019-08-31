@@ -39,7 +39,7 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
         {
             _taskSchedulerService.QueueTask(async () =>
                 {
-                    var books = _dataService.GetAllBooksAsync().Result;
+                    var books = await _dataService.GetAllBooksAsync();
                     await _thumbnailCacheService.CacheBooksAsync(books);
                     await _dataService.UpdateCachesAsync();
                     _eventAggregator.GetEvent<PostCachesUpdatedEvent>().Publish();

@@ -82,7 +82,7 @@ namespace ComicReader.Net.ApplicationMenu.ViewModels
             {
                 var files = Directory.GetFiles(SelectedItem, "*", SearchOption.AllDirectories);
                 await _dataService.AddBooksAsync(files);
-                var books = _dataService.GetAllBooksAsync().Result;
+                var books = await _dataService.GetAllBooksAsync();
                 await _zipService.ExtractBookByIdAsync(books);
             });
         }
