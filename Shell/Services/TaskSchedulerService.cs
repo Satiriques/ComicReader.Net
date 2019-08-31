@@ -9,25 +9,43 @@ using System.Threading.Tasks;
 
 namespace ComicReader.Net.Shell.Services
 {
-    public class TaskSchedulerService : ITaskSchedulerService
+    public class TaskSchedulerService : ITaskSchedulerService, IDisposable
     {
-        private Task _currentTask;
-        private object @lock = new object();
+        public int CurrentlyQueuedTasks { get { return _Queue.Count; } }
 
-        public void QueueTask(Task task)
+        private BlockingCollection<Action> _Queue = new BlockingCollection<Action>();
+
+        public TaskSchedulerService()
         {
-            lock (@lock)
+            Task.Factory.StartNew(() =>
             {
-                if (_currentTask?.Status == TaskStatus.Running)
+                while (true)
                 {
-                    _currentTask.ContinueWith((t) => task.Start());
+                    try
+                    {
+                        var action = _Queue.Take();
+                        action();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        break;
+                    }
+                    catch
+                    {
+                        // TODO log me
+                    }
                 }
-                else
-                {
-                    task.Start();
-                }
-                _currentTask = task;
-            }
+            });
+        }
+
+        public void QueueTask(Action action)
+        {
+            _Queue.Add(action);
+        }
+
+        public void Dispose()
+        {
+            _Queue.CompleteAdding();
         }
     }
 }
