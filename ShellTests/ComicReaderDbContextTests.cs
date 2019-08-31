@@ -39,10 +39,11 @@ namespace ShellTests
             var books = new Book[] { new Book() { Name = "My Book", Path = @"c:\myFile.txt" },
                                      new Book() { Name = "My Book Again", Path = @"c:\myFile2.txt"}};
 
-            _db.Books.AddRange(books);
+            var characters = new Character[] { new Character() { Book = books[0], Name = "George Washington" } ,
+                             new Character() { Book = books[1], Name = "George Washington" }};
 
-            _db.Characters.Add(new Character() { Book = books[0], CharacterId = 0, Name = "George Washington" });
-            _db.Characters.Add(new Character() { Book = books[1], CharacterId = 1, Name = "George Washington" });
+            _db.Books.AddRange(books);
+            _db.Characters.AddRange(characters);
 
             await _db.SaveChangesAsync();
         }
