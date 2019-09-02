@@ -20,6 +20,7 @@ namespace ComicReader.Net.Shell.Database
         public DbSet<Book> Books { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Serie> Series { get; set; }
         public DbSet<Thumbnail> Thumbnails { get; set; }
     }
 }
