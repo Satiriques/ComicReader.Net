@@ -89,6 +89,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\PathDb.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextBookTests.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextSerieTests.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextTagTests.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextTestBase.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextThumbnailTests.cs" />
     <Compile Include="Tests\ComicReaderDbContextTests\DbContextCharacterTests.cs" />
     <Compile Include="Tests\DataServiceTests.cs" />
     <Compile Include="Tests\ParserServiceTests.cs" />
