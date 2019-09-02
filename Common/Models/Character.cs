@@ -5,13 +5,14 @@ namespace ComicReader.Net.Common.Models
 {
     public class Character
     {
-        [Key, Column(Order = 0)]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CharacterId { get; set; }
 
-        [Key, Column(Order = 1)]
+        [Index("CharacterUnique", 1, IsUnique = true)]
         public string Name { get; set; }
 
+        [Index("CharacterUnique", 2, IsUnique = true)]
         public int BookId { get; set; }
 
         [ForeignKey("BookId")]

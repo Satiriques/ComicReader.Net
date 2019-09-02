@@ -6,7 +6,6 @@ namespace ComicReader.Net.Common.Models
     public class Serie
     {
         [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SerieId { get; set; }
 

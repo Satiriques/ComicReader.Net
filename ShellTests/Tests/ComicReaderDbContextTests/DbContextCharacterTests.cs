@@ -7,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.IO;
@@ -62,6 +63,31 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
             {
                 await dbHelper.Db.SaveChangesAsync();
             });
+
+            Cleanup(dbHelper);
+        }
+
+        [Test]
+        public void AddCharacterWithDuplicateNameTest()
+        {
+            var dbHelper = DbHelperCollection.Take();
+
+            var books = new List<Book>
+            {
+                new Book{ Path = @"c:\test.txt"},
+                new Book{Path = @"c:\test2.txt"}
+            };
+
+            var characters = new List<Character>
+            {
+                new Character{ Book = books[0], Name = @"test name1" },
+                new Character{ Book= books[0], Name = @"test name1" }
+            };
+
+            dbHelper.Db.Books.AddRange(books);
+            dbHelper.Db.Characters.AddRange(characters);
+
+            Assert.ThrowsAsync<DbUpdateException>(async () => await dbHelper.Db.SaveChangesAsync());
 
             Cleanup(dbHelper);
         }
