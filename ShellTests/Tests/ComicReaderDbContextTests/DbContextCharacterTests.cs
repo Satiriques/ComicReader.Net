@@ -15,9 +15,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ShellTests
+namespace ShellTests.Tests.ComicReaderDbContextTests
 {
-    public class ComicReaderDbContextTests
+    public class DbContextCharacterTests
     {
         private BlockingCollection<PathDb> _dbHelperCollection = new BlockingCollection<PathDb>();
 

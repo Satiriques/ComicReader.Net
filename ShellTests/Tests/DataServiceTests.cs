@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ShellTests
+namespace ShellTests.Tests
 {
     public class DataServiceTests
     {

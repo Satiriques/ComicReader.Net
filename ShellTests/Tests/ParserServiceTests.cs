@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShellTests
+namespace ShellTests.Tests
 {
     public class ParserServiceTests
     {

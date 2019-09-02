@@ -6,7 +6,7 @@ using ComicReader.Net.Shell.ViewModels;
 using Moq;
 using NUnit.Framework;
 
-namespace ShellTests
+namespace ShellTests.Tests
 {
     public class ViewModelTests
     {

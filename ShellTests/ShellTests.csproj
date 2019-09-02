@@ -89,11 +89,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\PathDb.cs" />
-    <Compile Include="ComicReaderDbContextTests.cs" />
-    <Compile Include="DataServiceTests.cs" />
-    <Compile Include="ParserService.cs" />
-    <Compile Include="ServiceTests.cs" />
-    <Compile Include="ViewModelTests.cs" />
+    <Compile Include="Tests\ComicReaderDbContextTests\DbContextCharacterTests.cs" />
+    <Compile Include="Tests\DataServiceTests.cs" />
+    <Compile Include="Tests\ParserServiceTests.cs" />
+    <Compile Include="Tests\ServiceTests.cs" />
+    <Compile Include="Tests\ViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
