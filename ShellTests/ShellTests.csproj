@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\PathDb.cs" />
     <Compile Include="ComicReaderDbContextTests.cs" />
     <Compile Include="DataServiceTests.cs" />
     <Compile Include="ParserService.cs" />

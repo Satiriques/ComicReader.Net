@@ -2,10 +2,14 @@
 using ComicReader.Net.Shell.Database;
 using NCrunch.Framework;
 using NUnit.Framework;
+using ShellTests.Classes;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,58 +17,69 @@ using System.Threading.Tasks;
 
 namespace ShellTests
 {
-    [Isolated]
     public class ComicReaderDbContextTests
     {
-        private ComicReaderDbContext _db;
+        private BlockingCollection<PathDb> _dbHelperCollection = new BlockingCollection<PathDb>();
 
         [SetUp]
         public void Setup()
         {
-            string dbFile = @$".\test.sdf";
-            _db = new ComicReaderDbContext($"Data Source={dbFile}",
-                new DropCreateDatabaseAlways<ComicReaderDbContext>());
+            string dbFile = @$".\test_{Guid.NewGuid()}.sdf";
+            _dbHelperCollection.Add(new PathDb(dbFile, new ComicReaderDbContext($"Data Source={dbFile}",
+                new DropCreateDatabaseAlways<ComicReaderDbContext>())));
         }
 
-        [TearDown]
-        public void TearDown()
+        public void Cleanup(PathDb dbHelper)
         {
-            _db.Dispose();
+            dbHelper.Db.Dispose();
+            File.Delete(dbHelper.Path);
         }
 
         [Test]
         public async Task AddCharacterTest()
         {
-            _db.Books.Add(new Book() { Name = "My Book", Path = @"c:\myFile.txt" });
-            _db.Characters.Add(new Character() { BookId = 0, Name = "George Washington" });
+            var dbHelper = _dbHelperCollection.Take();
 
-            await _db.SaveChangesAsync();
+            dbHelper.Db.Books.Add(new Book() { Name = "My Book", Path = @"c:\myFile.txt" });
+            dbHelper.Db.Characters.Add(new Character() { BookId = 0, Name = "George Washington" });
+
+            await dbHelper.Db.SaveChangesAsync();
+
+            Cleanup(dbHelper);
         }
 
         [Test]
         public async Task AddSameCharacterTwoBooksTest()
         {
+            var dbHelper = _dbHelperCollection.Take();
+
             var books = new Book[] { new Book() { Name = "My Book", Path = @"c:\myFile.txt" },
                                      new Book() { Name = "My Book Again", Path = @"c:\myFile2.txt"}};
 
             var characters = new Character[] { new Character() { Book = books[0], Name = "George Washington" } ,
                              new Character() { Book = books[1], Name = "George Washington" }};
 
-            _db.Books.AddRange(books);
-            _db.Characters.AddRange(characters);
+            dbHelper.Db.Books.AddRange(books);
+            dbHelper.Db.Characters.AddRange(characters);
 
-            await _db.SaveChangesAsync();
+            await dbHelper.Db.SaveChangesAsync();
+
+            Cleanup(dbHelper);
         }
 
         [Test]
         public void InvalidAddCharacterMissingPathTest()
         {
-            _db.Books.Add(new Book() { Name = "John Smith" });
+            var dbHelper = _dbHelperCollection.Take();
+
+            dbHelper.Db.Books.Add(new Book() { Name = "John Smith" });
 
             Assert.ThrowsAsync<DbEntityValidationException>(async () =>
             {
-                await _db.SaveChangesAsync();
+                await dbHelper.Db.SaveChangesAsync();
             });
+
+            Cleanup(dbHelper);
         }
     }
 }
