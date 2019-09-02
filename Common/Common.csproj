@@ -78,6 +78,7 @@
     <Compile Include="Interfaces\IZipService.cs" />
     <Compile Include="Metadatas\ComicRackMetaData.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Thumbnail.cs" />

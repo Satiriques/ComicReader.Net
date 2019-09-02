@@ -79,6 +79,8 @@ namespace ComicReader.Net.Shell.Services
             {
                 List<Book> booksToAdd = new List<Book>();
                 List<Character> charactersToAdd = new List<Character>();
+                List<Serie> seriesToAdd = new List<Serie>();
+                List<Tag> tagsToAdd = new List<Tag>();
 
                 foreach (var file in files)
                 {
@@ -100,24 +102,42 @@ namespace ComicReader.Net.Shell.Services
                             booksToAdd.Add(book);
                             if (File.Exists(Path.Combine(tmpPath, "ComicInfo.xml")))
                             {
-                                log.InfoFormat("Metadata found for file: {0}", Path.GetFileNameWithoutExtension(file));
-                                var metadata = _parserService.ParseComicRackMetaData(Path.Combine(tmpPath, "ComicInfo.xml"));
-                                if (metadata?.CharactersList?.Any() == true)
-                                {
-                                    log.InfoFormat("Adding characters: {0}", string.Join(",", metadata.CharactersList));
-                                    charactersToAdd.AddRange(metadata.CharactersList.Select(x =>
-                                    new Character() { Book = book, Name = x }));
-                                }
+                                AddMetadata(tmpPath, charactersToAdd, seriesToAdd, tagsToAdd, file, book);
                             }
                         }
                     }
                 }
 
                 db.Books.AddRange(booksToAdd);
-
                 db.Characters.AddRange(charactersToAdd);
+                db.Tags.AddRange(tagsToAdd);
 
                 await db.SaveChangesAsync();
+            }
+        }
+
+        private void AddMetadata(string tmpPath, List<Character> charactersToAdd,
+            List<Serie> seriesToAdd, List<Tag> tagsToAdd, string file, Book book)
+        {
+            log.DebugFormat("Metadata found for file: {0}", Path.GetFileNameWithoutExtension(file));
+            var metadata = _parserService.ParseComicRackMetaData(Path.Combine(tmpPath, "ComicInfo.xml"));
+            if (metadata?.CharactersList?.Any() == true)
+            {
+                log.DebugFormat("Adding characters: {0}", string.Join(",", metadata.CharactersList));
+                charactersToAdd.AddRange(metadata.CharactersList.Select(x =>
+                new Character() { Book = book, Name = x }));
+            }
+            if (metadata?.SeriesList?.Any() == true)
+            {
+                log.DebugFormat("Adding series: {0}", string.Join(",", metadata.SeriesList));
+                seriesToAdd.AddRange(metadata.SeriesList.Select(x =>
+                new Serie() { Book = book, Name = x }));
+            }
+            if (metadata?.GenreList?.Any() == true)
+            {
+                log.DebugFormat("Adding tags: {0}", string.Join(",", metadata.GenreList));
+                tagsToAdd.AddRange(metadata.GenreList.Select(x =>
+                new Tag() { Book = book, Name = x }));
             }
         }
 
