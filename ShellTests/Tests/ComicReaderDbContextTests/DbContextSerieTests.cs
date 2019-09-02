@@ -19,14 +19,17 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
             var db = dbHelper.Db;
 
             var book = new Book() { Path = @"c:\test.txt" };
+            var book2 = new Book() { Path = @"c:\test2.txt" };
 
             List<Serie> series = new List<Serie>()
             {
                 new Serie() { Name = "My serie", Book = book },
-                new Serie() { Name = "My serie2", Book = book }
+                new Serie() { Name = "My serie2", Book = book },
+                new Serie() { Name = "My serie", Book = book2 }
             };
 
             db.Books.Add(book);
+            db.Books.Add(book2);
             db.Series.AddRange(series);
 
             await dbHelper.Db.SaveChangesAsync();
@@ -35,7 +38,7 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
         }
 
         [Test]
-        public async Task AddSerieDuplicateTest()
+        public void AddSerieDuplicateTest()
         {
             var dbHelper = DbHelperCollection.Take();
             var db = dbHelper.Db;
@@ -51,8 +54,7 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
             db.Books.Add(book);
             db.Series.AddRange(series);
 
-            //await dbHelper.Db.SaveChangesAsync();
-            Assert.ThrowsAsync<DbEntityValidationException>(async () => await dbHelper.Db.SaveChangesAsync());
+            Assert.ThrowsAsync<DbUpdateException>(async () => await dbHelper.Db.SaveChangesAsync());
 
             Cleanup(dbHelper);
         }
