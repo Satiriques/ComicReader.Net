@@ -1,19 +1,8 @@
 ﻿using ComicReader.Net.Common.Models;
-using ComicReader.Net.Shell.Database;
-using NCrunch.Framework;
 using NUnit.Framework;
-using ShellTests.Classes;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ShellTests.Tests.ComicReaderDbContextTests
