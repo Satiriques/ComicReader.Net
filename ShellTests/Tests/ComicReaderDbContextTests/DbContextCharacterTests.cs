@@ -22,7 +22,7 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
         [Test]
         public async Task AddCharacterTest()
         {
-            var dbHelper = _dbHelperCollection.Take();
+            var dbHelper = DbHelperCollection.Take();
 
             dbHelper.Db.Books.Add(new Book() { Name = "My Book", Path = @"c:\myFile.txt" });
             dbHelper.Db.Characters.Add(new Character() { BookId = 0, Name = "George Washington" });
@@ -35,7 +35,7 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
         [Test]
         public async Task AddSameCharacterTwoBooksTest()
         {
-            var dbHelper = _dbHelperCollection.Take();
+            var dbHelper = DbHelperCollection.Take();
 
             var books = new Book[] { new Book() { Name = "My Book", Path = @"c:\myFile.txt" },
                                      new Book() { Name = "My Book Again", Path = @"c:\myFile2.txt"}};
@@ -54,7 +54,7 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
         [Test]
         public void InvalidAddCharacterMissingPathTest()
         {
-            var dbHelper = _dbHelperCollection.Take();
+            var dbHelper = DbHelperCollection.Take();
 
             dbHelper.Db.Books.Add(new Book() { Name = "John Smith" });
 

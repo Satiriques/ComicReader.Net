@@ -10,13 +10,13 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
 {
     public class DbContextTestBase
     {
-        protected BlockingCollection<PathDb> _dbHelperCollection = new BlockingCollection<PathDb>();
+        protected BlockingCollection<PathDb> DbHelperCollection = new BlockingCollection<PathDb>();
 
         [SetUp]
         public void Setup()
         {
             string dbFile = @$".\test_{Guid.NewGuid()}.sdf";
-            _dbHelperCollection.Add(new PathDb(dbFile, new ComicReaderDbContext($"Data Source={dbFile}",
+            DbHelperCollection.Add(new PathDb(dbFile, new ComicReaderDbContext($"Data Source={dbFile}",
                 new DropCreateDatabaseAlways<ComicReaderDbContext>())));
         }
 
