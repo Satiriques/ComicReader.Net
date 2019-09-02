@@ -6,14 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ShellTests
+namespace ShellSingleThreadTests
 {
-    [Isolated]
     public class ComicReaderDbContextTests
     {
         private ComicReaderDbContext _db;
@@ -21,7 +21,7 @@ namespace ShellTests
         [SetUp]
         public void Setup()
         {
-            string dbFile = @$".\test.sdf";
+            string dbFile = $@".\test_{Thread.CurrentThread.ManagedThreadId}.sdf";
             _db = new ComicReaderDbContext($"Data Source={dbFile}",
                 new DropCreateDatabaseAlways<ComicReaderDbContext>());
         }
@@ -30,6 +30,8 @@ namespace ShellTests
         public void TearDown()
         {
             _db.Dispose();
+            string dbFile = $@".\test_{Thread.CurrentThread.ManagedThreadId}.sdf";
+            File.Delete(dbFile);
         }
 
         [Test]
