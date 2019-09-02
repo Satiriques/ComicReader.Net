@@ -16,21 +16,18 @@ namespace ShellTests
     {
         private ComicReaderDbContext _db;
 
-        [SetUp]
-        public void SetDataService()
-        {
-            string dbFile = @$".\test_{Thread.CurrentThread.ManagedThreadId}.sdf";
-            _db = new ComicReaderDbContext($"Data Source={dbFile}",
-                new DropCreateDatabaseAlways<ComicReaderDbContext>());
-        }
-
         [Test]
         public async Task AddCharacterTest()
         {
-            _db.Books.Add(new Book() { Name = "My Book", Path = @"c:\myFile.txt" });
-            _db.Characters.Add(new Character() { BookId = 0, Name = "George Washington" });
+            string dbFile = @$".\test.sdf";
+            using (var db = new ComicReaderDbContext($"Data Source={dbFile}",
+                new DropCreateDatabaseAlways<ComicReaderDbContext>()))
+            {
+                db.Books.Add(new Book() { Name = "My Book", Path = @"c:\myFile.txt" });
+                db.Characters.Add(new Character() { BookId = 0, Name = "George Washington" });
 
-            await _db.SaveChangesAsync();
+                await db.SaveChangesAsync();
+            }
         }
 
         [Test]
@@ -42,32 +39,31 @@ namespace ShellTests
             var characters = new Character[] { new Character() { Book = books[0], Name = "George Washington" } ,
                              new Character() { Book = books[1], Name = "George Washington" }};
 
-            _db.Books.AddRange(books);
-            _db.Characters.AddRange(characters);
-
-            await _db.SaveChangesAsync();
-        }
-
-        //[Test]
-        public void InvalidAddCharacterMissingNameTest()
-        {
-            _db.Books.Add(new Book() { Path = @"c:\myFile.txt" });
-
-            Assert.ThrowsAsync<DbEntityValidationException>(async () =>
+            string dbFile = @$".\test.sdf";
+            using (var db = new ComicReaderDbContext($"Data Source={dbFile}",
+                new DropCreateDatabaseAlways<ComicReaderDbContext>()))
             {
-                await _db.SaveChangesAsync();
-            });
+                db.Books.AddRange(books);
+                db.Characters.AddRange(characters);
+
+                await db.SaveChangesAsync();
+            }
         }
 
         [Test]
         public void InvalidAddCharacterMissingPathTest()
         {
-            _db.Books.Add(new Book() { Name = "John Smith" });
-
-            Assert.ThrowsAsync<DbEntityValidationException>(async () =>
+            string dbFile = @$".\test.sdf";
+            using (var db = new ComicReaderDbContext($"Data Source={dbFile}",
+                new DropCreateDatabaseAlways<ComicReaderDbContext>()))
             {
-                await _db.SaveChangesAsync();
-            });
+                db.Books.Add(new Book() { Name = "John Smith" });
+
+                Assert.ThrowsAsync<DbEntityValidationException>(async () =>
+                {
+                    await db.SaveChangesAsync();
+                });
+            }
         }
     }
 }
