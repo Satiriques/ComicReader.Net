@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ComicReader.Net.Common.Models;
+using System.Data.Entity.Validation;
 
 namespace ShellTests.Tests.ComicReaderDbContextTests
 {
@@ -24,6 +25,19 @@ namespace ShellTests.Tests.ComicReaderDbContextTests
             Assert.IsNotNull(books);
             CollectionAssert.IsNotEmpty(books);
             Assert.AreEqual(book.Path, books[0].Path);
+
+            Cleanup(dbHelper);
+        }
+
+        [Test]
+        public void AddInvalidBookTest()
+        {
+            var dbHelper = DbHelperCollection.Take();
+            var db = dbHelper.Db;
+
+            var book = new Book();
+            db.Books.Add(book);
+            Assert.Throws<DbEntityValidationException>(() => db.SaveChangesAsync());
 
             Cleanup(dbHelper);
         }
