@@ -16,7 +16,7 @@ public class ComicInfo
     [XmlIgnore]
     public IEnumerable<string> SeriesList
     {
-        get { return Series.Split(',').Select(x => x.Trim()); }
+        get { return string.IsNullOrEmpty(Series) ? Enumerable.Empty<string>() : Series.Split(',').Select(x => x.Trim()); }
         set { Series = string.Join(",", value); }
     }
 
@@ -41,7 +41,7 @@ public class ComicInfo
     [XmlIgnore]
     public IEnumerable<string> GenreList
     {
-        get { return Genre.Split(',').Select(x => x.Trim()); }
+        get { return string.IsNullOrEmpty(Genre) ? Enumerable.Empty<string>() : Genre.Split(',').Select(x => x.Trim()); }
         set { Genre = string.Join(",", value); }
     }
 
