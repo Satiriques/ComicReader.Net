@@ -70,6 +70,13 @@ namespace ComicReader.Net.Shell.Services
             }
         }
 
+        /// <summary>
+        /// For each file, unzip that file and add the book to the database,
+        /// while parsing the metadata if present and adding them to their
+        /// table
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
         public async Task AddBooksAsync(IEnumerable<string> files)
         {
             log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] AddBooksAsync");
