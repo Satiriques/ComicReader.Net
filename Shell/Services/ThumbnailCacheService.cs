@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ComicReader.Net.Shell.Services
@@ -86,7 +87,7 @@ namespace ComicReader.Net.Shell.Services
                 if (!File.Exists(cacheFilePath) || (File.Exists(cacheFilePath) && overwrite))
                 {
                     string currentFolder = Path.Combine(folder, book.Id.ToString());
-                    log.Debug($"[{Process.GetCurrentProcess().Id}] current folder: {currentFolder}");
+                    log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] current folder: {currentFolder}");
                     Directory.CreateDirectory(currentFolder);
                     try
                     {
@@ -100,11 +101,11 @@ namespace ComicReader.Net.Shell.Services
 
                     var files = Directory.GetFiles(currentFolder).Where(x => !x.EndsWith("xml")).ToArray();
 
-                    log.Debug($"[{Process.GetCurrentProcess().Id}] deleting file: {cacheFilePath}");
+                    log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] deleting file: {cacheFilePath}");
                     File.Delete(cacheFilePath);
-                    log.Debug($"[{Process.GetCurrentProcess().Id}] resizing file: {files[0]} and moving to {cacheFilePath}");
+                    log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] resizing file: {files[0]} and moving to {cacheFilePath}");
                     _imageService.ResizeImage(files[0], cacheFilePath, 256, 256);
-                    log.Debug($"[{Process.GetCurrentProcess().Id}] deleting folder: {currentFolder}");
+                    log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] deleting folder: {currentFolder}");
                     Directory.Delete(currentFolder, true);
                 }
             }).ConfigureAwait(false);

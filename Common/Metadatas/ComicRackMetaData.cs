@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-[System.Serializable()]
+[System.Serializable]
 [System.ComponentModel.DesignerCategory("code")]
-[System.Xml.Serialization.XmlType(AnonymousType = true)]
-[System.Xml.Serialization.XmlRoot(Namespace = "", IsNullable = false)]
-public partial class ComicInfo
+[XmlType(AnonymousType = true)]
+[XmlRoot(Namespace = "", IsNullable = false)]
+public class ComicInfo
 {
     public string Title { get; set; }
 
@@ -66,27 +66,27 @@ public partial class ComicInfo
 
     public int PageCount { get; set; }
 
-    [System.Xml.Serialization.XmlArrayItem("Page", IsNullable = false)]
+    [XmlArrayItem("Page", IsNullable = false)]
     public ComicInfoPage[] Pages { get; set; }
 }
 
-[System.Serializable()]
+[System.Serializable]
 [System.ComponentModel.DesignerCategory("code")]
-[System.Xml.Serialization.XmlType(AnonymousType = true)]
-public partial class ComicInfoPage
+[XmlType(AnonymousType = true)]
+public class ComicInfoPage
 {
-    [System.Xml.Serialization.XmlAttribute()]
-    public byte Image { get; set; }
+    [XmlAttribute]
+    public uint Image { get; set; }
 
-    [System.Xml.Serialization.XmlAttribute()]
+    [XmlAttribute]
     public uint ImageSize { get; set; }
 
-    [System.Xml.Serialization.XmlAttribute()]
-    public ushort ImageWidth { get; set; }
+    [XmlAttribute]
+    public uint ImageWidth { get; set; }
 
-    [System.Xml.Serialization.XmlAttribute()]
-    public ushort ImageHeight { get; set; }
+    [XmlAttribute]
+    public uint ImageHeight { get; set; }
 
-    [System.Xml.Serialization.XmlAttribute()]
+    [XmlAttribute]
     public string Key { get; set; }
 }

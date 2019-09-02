@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ComicReader.Net.Shell.Services
@@ -71,7 +72,8 @@ namespace ComicReader.Net.Shell.Services
 
         public async Task AddBooksAsync(IEnumerable<string> files)
         {
-            var tmpPath = Path.Combine(Path.GetTempPath(), "ComicReader.Net_", Process.GetCurrentProcess().Id.ToString());
+            log.Debug($"[{Thread.CurrentThread.ManagedThreadId}] AddBooksAsync");
+            var tmpPath = Path.Combine(Path.GetTempPath(), "ComicReader.Net_" + Process.GetCurrentProcess().Id.ToString());
 
             using (var db = _dbContext())
             {
@@ -83,7 +85,16 @@ namespace ComicReader.Net.Shell.Services
                     if (!await db.Books.AnyAsync(x => x.Path == file))
                     {
                         var book = new Book() { Path = file };
-                        _zipService.ExtractBook(book, tmpPath);
+                        try
+                        {
+                            _zipService.ExtractBook(book, tmpPath);
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error(e.Message);
+                            continue;
+                        }
+
                         if (Directory.GetFiles(tmpPath).Length > 0)
                         {
                             booksToAdd.Add(book);
@@ -91,7 +102,7 @@ namespace ComicReader.Net.Shell.Services
                             {
                                 log.InfoFormat("Metadata found for file: {0}", Path.GetFileNameWithoutExtension(file));
                                 var metadata = _parserService.ParseComicRackMetaData(Path.Combine(tmpPath, "ComicInfo.xml"));
-                                if (metadata.CharactersList?.Any() == true)
+                                if (metadata?.CharactersList?.Any() == true)
                                 {
                                     log.InfoFormat("Adding characters: {0}", string.Join(",", metadata.CharactersList));
                                     charactersToAdd.AddRange(metadata.CharactersList.Select(x =>

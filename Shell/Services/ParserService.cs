@@ -14,11 +14,22 @@ namespace ComicReader.Net.Shell.Services
     {
         public ComicInfo ParseComicRackMetaData(string path)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ComicInfo));
-            StreamReader reader = new StreamReader(path);
-            var config = (ComicInfo)serializer.Deserialize(reader);
-            reader.Close();
-            return config;
+            ComicInfo config = null;
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(ComicInfo));
+                StreamReader reader = new StreamReader(path);
+                config = (ComicInfo)serializer.Deserialize(reader);
+                reader.Close();
+                return config;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            finally
+            {
+            }
         }
     }
 }

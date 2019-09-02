@@ -1,5 +1,8 @@
 ﻿using ComicReader.Net.Common.Interfaces;
+using ComicReader.Net.Shell.Database;
 using ComicReader.Net.Shell.ViewModels;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -12,7 +15,7 @@ namespace ComicReader.Net.Shell
     {
         private readonly IDataService _dataService;
 
-        public MainWindow(MainViewModel mainViewModel, IDataService dataService)
+        public MainWindow(MainViewModel mainViewModel, IDataService dataService, Func<ComicReaderDbContext> func)
         {
             InitializeComponent();
             DataContext = mainViewModel;
